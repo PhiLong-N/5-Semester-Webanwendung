@@ -30,7 +30,7 @@
 		out.print("<form action='./WarenkorbAppl.jsp' method='get'>");
 		int position = o.getPosition();
 		ab.getAllInfo(o.getArtikelNr());
-		out.print("<tr><td rowspan='4'><a href='http://localhost:8080/A_Praktikum_test/jsp/ArtikelSeiteView.jsp?btnArtikel="+o.getArtikelNr()+"'> <img src='../img/caipi.jpg' height='100px' /></a></td>");
+		out.print("<tr><td rowspan='4'><a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+o.getArtikelNr()+"'> <img src='../img/caipi.jpg' height='100px' /></a></td>");
 		
 		
 		out.print("<tr><td>"+ab.getArtikel()+" \b </td>");
@@ -60,12 +60,12 @@
 		
 		out.print("<tr>");
 		out.print("<td> </td>");
-		out.print("<td> Einzelpreis: "+o.getEinzelpreis()+"Euro</td>");
+		out.print("<td> Einzelpreis: "+o.getEinzelpreis()+" Euro</td>");
 		out.print("</tr>");
 		
 		out.print("<tr>");
 		out.print("<td> </td>");
-		out.print("<td> Gesamtpreis: "+o.getGesamtpreis()+"Euro </td>");
+		out.print("<td> Gesamtpreis: "+o.getGesamtpreis()+" Euro </td>");
 		out.print("</tr>");
 		
 	}	
@@ -75,8 +75,14 @@
 	<br><br><br>
 	
 	<%
-		out.print("Endpreis: "+wkb.endpreis()+"Euro");
+		out.print("Gesamtbetrag: "+wkb.endpreis()+" Euro");
 	%>
+	<br><br>
+	<form action= "./WarenkorbAppl.jsp" method="get">
+		<button type="submit" name="btnKasse" value="kasse">Zur Kasse</button>
+	</form>
+		
+	
 
 
 	<br>

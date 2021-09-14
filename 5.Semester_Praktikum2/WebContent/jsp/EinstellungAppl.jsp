@@ -14,10 +14,12 @@
 <%
 String btnAdresse = request.getParameter("btnAdresse");
 String btnLoschen = request.getParameter("btnLoschen");
+String btnMeineBestellungen = request.getParameter("btnMeineBestellungen");
 
 
 if(btnAdresse==null)btnAdresse="";
 if(btnLoschen==null)btnLoschen="";
+if(btnMeineBestellungen==null)btnMeineBestellungen="";
 
 
 if (btnAdresse.equals("adresse")){
@@ -26,6 +28,9 @@ if (btnAdresse.equals("adresse")){
 else if(btnLoschen.equals("loschen")){
 	acb.deletAcc();
 	response.sendRedirect("StartView.jsp");
+}
+else if(btnMeineBestellungen.equals("bestellung")){
+	response.sendRedirect("MeineBestellungenView.jsp");
 }
 else response.sendRedirect("StartView.jsp");
 

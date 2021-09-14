@@ -38,12 +38,12 @@ public class ArtikelBean {
 	}
 	
 	public void searchAll(String eingabe) throws NoConnectionException, SQLException {
-		String sql = "select artikelnr,artikel,preis from artikel where artikelLower like '%"+eingabe.toLowerCase() +"%'";
+		String sql = "select artikelnr,artikel,preis,lager from artikel where artikelLower like '%"+eingabe.toLowerCase() +"%'";
 		search(sql);
 	}
 	
 	public void searchKategorie(String eingabe,String katLower) throws NoConnectionException, SQLException{
-		String sql = "select artikelnr,artikel,preis,kategorie from artikel where artikelLower like '%"+eingabe.toLowerCase() +"%' and kategorieLower like '%"+katLower+"%'";
+		String sql = "select artikelnr,artikel,preis,kategorie,lager from artikel where artikelLower like '%"+eingabe.toLowerCase() +"%' and kategorieLower like '%"+katLower+"%'";
 		search(sql);
 	}
 	
@@ -56,7 +56,12 @@ public class ArtikelBean {
 			int artikelnr = dbRes.getInt("artikelnr");
 			String artikel = dbRes.getString("artikel").trim();
 			double preis = dbRes.getDouble("preis");
-			html += "<td><button type='submit' name='btnArtikel' value='"+artikelnr+"'>"+artikel+"</button> </td>";
+			html += "<td><button type='submit' name='btnArtikel' value='"+artikelnr+"'>"+"<img src='../img/caipi.jpg' height='100px' />"+artikel+"</button>";
+			int lager = dbRes.getInt("lager");
+			if(lager>=10)html += "Auf Lager";
+			else if(lager>=1)html += "Nur noch wenige Verfügbar";
+			else html += "Ausverkauft";
+			html +="</td>";
 			if (a%2==1)html+="</tr>";
 			a++;
 		}

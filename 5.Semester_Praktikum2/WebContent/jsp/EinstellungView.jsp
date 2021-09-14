@@ -12,6 +12,7 @@
 
 	<button type="submit" name="btnAdresse" value="adresse">Adresse Ändern</button>
 	<button type="submit" name="btnLoschen" value="loschen">Account Löschen</button>
+	<button type="submit" name="btnMeineBestellungen" value="bestellung">Meine Bestellungen</button>
 
 
 </form>

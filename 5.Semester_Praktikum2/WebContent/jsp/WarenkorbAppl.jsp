@@ -13,17 +13,22 @@
 
 <%
 String anzahlArtikelAndernString = request.getParameter("anzahlArtikelAndern");
-int anzahlArtikelAndern = Integer.parseInt(anzahlArtikelAndernString);
+int anzahlArtikelAndern = 0;
+if(anzahlArtikelAndernString !=null)anzahlArtikelAndern= Integer.parseInt(anzahlArtikelAndernString);
+
 String btnArtikelAndernString = request.getParameter("btnArtikelAndern");
 if (btnArtikelAndernString==null)btnArtikelAndernString="";
 int btnArtikelAndern=0;
 if(!btnArtikelAndernString.equals(""))btnArtikelAndern = Integer.parseInt(btnArtikelAndernString);
+
 String btnArtikelLoschenString = request.getParameter("btnArtikelLoschen");
 if (btnArtikelLoschenString==null)btnArtikelLoschenString="";
 int btnArtikelLoschen=0;
 if (!btnArtikelLoschenString.equals("")){
 	btnArtikelLoschen = Integer.parseInt(btnArtikelLoschenString);
 }
+String btnKasse = request.getParameter("btnKasse");
+if (btnKasse==null)btnKasse="";
 
 
 if(!btnArtikelAndernString.equals("")){
@@ -32,6 +37,8 @@ if(!btnArtikelAndernString.equals("")){
 }else if(!btnArtikelLoschenString.equals("")){
 	wkb.deletArtikel(btnArtikelLoschen);
 	response.sendRedirect("WarenkorbView.jsp");
+}else if (btnKasse.equals("kasse")){
+	response.sendRedirect("KasseView.jsp");
 }else response.sendRedirect("StartView.jsp");
 
 %>

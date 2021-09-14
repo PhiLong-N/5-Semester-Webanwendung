@@ -98,7 +98,7 @@ public class AccountBean {
 	}
 	
 	public void login() throws NoConnectionException, SQLException {
-		String sql = "select accNr,email,admin,lastvisitInt from account where username = '" + this.username + "'";
+		String sql = "select accNr,email,admin,lastvisitInt,adresse,stadt,plz from account where username = '" + this.username + "'";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
 		setAccNr(dbRes.getInt("accnr"));
@@ -106,6 +106,9 @@ public class AccountBean {
 		setAdmin(dbRes.getBoolean("admin"));
 		int merker = dbRes.getInt("lastvisitInt");
 		if (merker !=0)setLastArtikelInt(merker);
+		setAdresse(dbRes.getString("adresse"));
+		setStadt(dbRes.getString("stadt"));
+		setPlz(dbRes.getInt("plz"));
 		setLogin(true);
 	}
 	
@@ -135,6 +138,9 @@ public class AccountBean {
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
 		check=true;
+		setAdresse(adresse);
+		setStadt(stadt);
+		setPlz(plz);
 		return check;
 	}
 	

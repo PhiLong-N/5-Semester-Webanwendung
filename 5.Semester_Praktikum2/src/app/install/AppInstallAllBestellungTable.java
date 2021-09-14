@@ -1,8 +1,11 @@
 package app.install;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.sql.Timestamp;
+
 
 public class AppInstallAllBestellungTable {
 	
@@ -16,8 +19,8 @@ Connection dbConn;
 	
 	public void doSomething() throws SQLException, ClassNotFoundException{
 		dropAllBestellungTable();
-		//createAllBestellungTable();	
-		//insert();
+		createAllBestellungTable();	
+		//test();
 	}
 	
 	public void dropAllBestellungTable() throws SQLException {
@@ -30,13 +33,22 @@ Connection dbConn;
 	public void createAllBestellungTable() throws SQLException {
 		String sql = "CREATE TABLE allBestellung ("
 				+ "		bestellNr		SERIAL PRIMARY KEY,	"
-				+ "		kundenNr		INTEGER,		"
-				+ "		gesamtpreis		DECIMAL(5,2)	"
+				+ "		kundenNr		INTEGER,			"
+				+ "		artikelnr		INTEGER,			"
+				+ "		menge			INTEGER,			"
+				+ "		datum			TIMESTAMP 				" //muss man ändern mit Zeitstempel oder so
 				+ "		)";
 		System.out.println(sql);
 		PreparedStatement prepStat = dbConn.prepareStatement(sql);
 		prepStat.executeUpdate();
 		System.out.println("Table allBestellung erfolgreich angelegt");
+	}
+	
+	public void test() {
+		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+		System.out.println(timestamp);
+
+
 	}
 	
 	
