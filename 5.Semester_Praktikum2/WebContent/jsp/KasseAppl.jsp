@@ -28,7 +28,7 @@ if (btnLieferadresseAndern.equals("lieferadresseandern")){
 	///////////////////////////
 	int kundenNr=acb.getAccNr();
 	abb.bestellung(kundenNr,acb.getUsername(),acb.getAdresse(),acb.getStadt(),acb.getPlz());
-	
+	acb.refreshData();
 	response.sendRedirect("KaufbestatigungView.jsp");
 }else response.sendRedirect("StartView.jsp");
 

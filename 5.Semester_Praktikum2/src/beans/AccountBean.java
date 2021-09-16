@@ -112,6 +112,16 @@ public class AccountBean {
 		setLogin(true);
 	}
 	
+	public void refreshData() throws NoConnectionException, SQLException {
+		String sql = "select username,adresse,stadt,plz from account where accnr =" + this.accNr;
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		dbRes.next();
+		setUsername(dbRes.getString("username"));
+		setAdresse(dbRes.getString("adresse"));
+		setStadt(dbRes.getString("stadt"));
+		setPlz(dbRes.getInt("plz"));
+	}
+	
 	public void logout() throws NoConnectionException, SQLException {
 		setAccNr(0);
 		setEmail(null);

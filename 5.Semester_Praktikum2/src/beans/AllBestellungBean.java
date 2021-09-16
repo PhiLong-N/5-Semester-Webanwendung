@@ -13,7 +13,6 @@ import app.install.PostgreSQLAccess;
 
 public class AllBestellungBean {
 	
-	int kundennr;
 	
 	Connection dbConn;
 	
@@ -74,16 +73,15 @@ public class AllBestellungBean {
 		}
 	}
 	
-	public Timestamp getBestellung(int kundennr) throws NoConnectionException, SQLException {
-		this.kundennr=kundennr;
-		String sql="select datum from allbestellung where kundennr="+kundennr;
+	public Timestamp getTime(int bestellnr) throws NoConnectionException, SQLException {
+		String sql="select datum from allbestellung where bestellnr="+bestellnr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
 		Timestamp time = dbRes.getTimestamp("datum");
 		return time;
 	}
 	
-	public double getSumme(int bestellnr ) throws NoConnectionException, SQLException {
+	public double getSumme(int kundennr, int bestellnr ) throws NoConnectionException, SQLException {
 		double summe=0;
 		String sql ="select artikelnr,menge from allbestellung where kundennr="+kundennr+" and bestellnr="+bestellnr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
@@ -108,12 +106,54 @@ public class AllBestellungBean {
 		String stadt = dbRes.getString("stadt");
 		int plz = dbRes.getInt("plz");
 		
-		
-		String html="";
+		String html=name+"<br>"+adresse+"<br>"+stadt+"<br>"+plz+"<br>";
 		return html;
 	}
 	
+	public String getBestellung(int bestellnummer) throws NoConnectionException, SQLException {
+		String html="";
+		String sql ="select artikelnr, menge from allbestellung where bestellnr="+bestellnummer;
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		while(dbRes.next()) {
+			int artikelnr=dbRes.getInt("artikelnr");
+			int menge = dbRes.getInt("menge");
+			String sql2 = "select artikel,preis from artikel where artikelnr="+artikelnr;
+			ResultSet dbRes2 = new PostgreSQLAccess().getConnection().prepareStatement(sql2).executeQuery();
+			dbRes2.next();
+			String artikel=dbRes2.getString("artikel");
+			double preis = dbRes2.getDouble("preis");
+			html +="<tr> <td> <a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'> <img src='../img/caipi.jpg' height='100px' /></a>"
+					+ "<a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'>"+artikel +"</a> "
+					+ "</td> <td>Menge: "+menge +"</td> <td>Einzelpreis: "+preis+"</td> </tr>" ;
+		}
+		return html;
+	}
 	
+	public String test(int kundennr) throws NoConnectionException, SQLException {
+		String html="";
+		int bestellnrAlt=0;
+		String sqlKundennr="select bestellnr from allbestellung where kundennr="+kundennr+" group by bestellnr ORDER by bestellnr DESC";
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sqlKundennr).executeQuery();
+		while (dbRes.next()) {
+			int bestellnr = dbRes.getInt("bestellnr");
+			String sqlBestellnr = "select * from allbestellung where bestellnr="+bestellnr;
+			ResultSet dbRes2 = new PostgreSQLAccess().getConnection().prepareStatement(sqlBestellnr).executeQuery();
+			while (dbRes2.next()) {
+				if(bestellnrAlt!=bestellnr) {
+					html+="<table><tr><td>"+getTime(bestellnr)+"</td>";
+					html+="<td>	Gesamtbetrag: "+getSumme(kundennr, bestellnr)+" Euro </td>";
+					html+=" <td>Bestellnummer: "+bestellnr+" </td></tr>";
+					html+="<tr><td>"+getVersandadresse(bestellnr)+"</td></tr>";
+					html+= getBestellung(bestellnr);
+					html+="</table>";
+				}
+				bestellnrAlt=bestellnr;
+			}	
+		}
+		
+		
+		return html;
+	}
 	
 	
 
