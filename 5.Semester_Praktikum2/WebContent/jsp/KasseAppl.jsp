@@ -27,7 +27,7 @@ if (btnLieferadresseAndern.equals("lieferadresseandern")){
 }else if (btnKaufen.equals("jetztKaufen")){
 	///////////////////////////
 	int kundenNr=acb.getAccNr();
-	abb.bestellung(kundenNr);
+	abb.bestellung(kundenNr,acb.getUsername(),acb.getAdresse(),acb.getStadt(),acb.getPlz());
 	
 	response.sendRedirect("KaufbestatigungView.jsp");
 }else response.sendRedirect("StartView.jsp");

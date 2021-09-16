@@ -32,11 +32,15 @@ Connection dbConn;
 	
 	public void createAllBestellungTable() throws SQLException {
 		String sql = "CREATE TABLE allBestellung ("
-				+ "		bestellNr		SERIAL PRIMARY KEY,	"
+				+ "		bestellNr		INTEGER,			"
 				+ "		kundenNr		INTEGER,			"
 				+ "		artikelnr		INTEGER,			"
 				+ "		menge			INTEGER,			"
-				+ "		datum			TIMESTAMP 				" //muss man ändern mit Zeitstempel oder so
+				+ "		datum			TIMESTAMP, 			"
+				+ "		name			CHAR(64),			"
+				+ "		Adresse			CHAR(64),			"
+				+ "		Stadt			CHAR(64),			"
+				+ "		plz				INTEGER				"	
 				+ "		)";
 		System.out.println(sql);
 		PreparedStatement prepStat = dbConn.prepareStatement(sql);
