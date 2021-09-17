@@ -32,7 +32,9 @@ public class AppInstallArtikelTable {
 				+ "		preis      		DECIMAL(5,2)NOT NULL,         		"
 				+ "     clicks     		INTEGER 	DEFAULT '0',      		"
 				+ "     beschreibung 	VARCHAR,                   			"
-				+ "		lager			INTEGER		DEFAULT '0'				"
+				+ "		lager			INTEGER		DEFAULT '0',			"
+				+ "		bewertungsum	DECIMAL		DEFAULT '0',			"
+				+ "		bewertunganzahl DECIMAL		DEFAULT	'1'				"
 				+ "	  )";
 		System.out.println(sql);
 		PreparedStatement prepStat = dbConn.prepareStatement(sql);
@@ -48,17 +50,17 @@ public class AppInstallArtikelTable {
 	}
 	
 	public void insert() throws SQLException {
-		String sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,lager) VALUES ('Kirschbaum','kirschbaum','Garten','garten',9.99,'ein Kirschbaum',11)";
+		String sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,lager,bewertungsum,bewertunganzahl) VALUES ('Kirschbaum','kirschbaum','Garten','garten',9.99,'ein Kirschbaum',11,227,99)";
 		PreparedStatement prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Baum erfolgreich hinzugefügt");
 		
-		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,lager) VALUES ('Lilie','lilie','Garten','garten',2.99,'eine Blume',5,99)";
+		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,lager,bewertungsum,bewertunganzahl) VALUES ('Lilie','lilie','Garten','garten',2.99,'eine Blume',5,99,55,15)";
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Lilie erfolgreich hinzugefügt");
 		
-		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks) VALUES ('Apfel','apfel','Garten','garten',0.99,'ein Apfel',46)";
+		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,bewertungsum,bewertunganzahl) VALUES ('Apfel','apfel','Garten','garten',0.99,'ein Apfel',46,10,8)";
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Apfel erfolgreich hinzugefügt");
@@ -68,12 +70,12 @@ public class AppInstallArtikelTable {
 		prep.executeUpdate();
 		System.out.println("Schlauch erfolgreich hinzugefügt");
 		
-		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,lager) VALUES ('Schaufel','schaufel','Garten','garten',9.99,'eine Blume',3,10)";
+		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,lager,bewertungsum,bewertunganzahl) VALUES ('Schaufel','schaufel','Garten','garten',9.99,'eine Blume',3,10,54,15)";
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Schaufel erfolgreich hinzugefügt");
 		
-		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,lager) VALUES ('Nintendo Switch','nintendo switch','Elektro','elektro',320.99,'eine Switch',99,13)";
+		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,lager,bewertungsum,bewertunganzahl) VALUES ('Nintendo Switch','nintendo switch','Elektro','elektro',320.99,'eine Switch',99,13,90,20)";
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Switch erfolgreich hinzugefügt");

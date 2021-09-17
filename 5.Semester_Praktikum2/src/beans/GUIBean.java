@@ -1,6 +1,15 @@
 package beans;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import app.install.NoConnectionException;
+import app.install.PostgreSQLAccess;
+
 public class GUIBean {
+	
+	Connection dbConn;
 	
 	
 	public String falseLogin() {
@@ -41,6 +50,23 @@ public class GUIBean {
 		//jsp:getProperty name='acb' property='lastArtikelInt'
 		html += "<img src='../img/caipi.jpg' height='100px' />";
 		html += "</button>";
+		return html;
+	}
+	
+	
+	public String trend() throws NoConnectionException, SQLException {
+		String html="<table><tr><td>Im Trend</td></tr> <tr>";
+		String sql = "select artikelnr,artikel from artikel order by clicks desc";
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		int counter=0;
+		while(dbRes.next() & counter<5) {
+			counter+=1;
+			int artikelnr=dbRes.getInt("artikelnr");
+			String artikel = dbRes.getString("artikel");
+			html+="<td><button type='submit' name='btnArtikel' value="+artikelnr+"><img src='../img/caipi.jpg' height='100px' /><br>"+artikel+"</button> </td>";
+		}
+		
+		html+="</tr></table>";
 		return html;
 	}
 

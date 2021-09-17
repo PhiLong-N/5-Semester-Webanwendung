@@ -17,6 +17,10 @@ String searchBar = request.getParameter("searchBar");
 String btnSearch = request.getParameter("btnSearch");
 if (btnSearch==null)btnSearch="";
 
+String preisklasse = request.getParameter("preisklasse");
+String btnPreisklasse= request.getParameter("btnPreisklasse");
+if (btnPreisklasse==null)btnPreisklasse="";
+
 if (btnSearch.equals("search")){
 	if (kategorieDropdown.equals("Alle")){
 		ab.searchAll(searchBar);
@@ -24,6 +28,10 @@ if (btnSearch.equals("search")){
 	else{
 		ab.searchKategorie(searchBar, kategorieDropdown);
 	}
+	response.sendRedirect("SearchView.jsp");
+}
+else if(btnPreisklasse.equals("ubernehmen")){
+	ab.searchPreisklasse(preisklasse);
 	response.sendRedirect("SearchView.jsp");
 }
 else response.sendRedirect("StartView.jsp");

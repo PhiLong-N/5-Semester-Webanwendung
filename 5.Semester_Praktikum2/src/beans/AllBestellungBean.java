@@ -122,14 +122,17 @@ public class AllBestellungBean {
 			dbRes2.next();
 			String artikel=dbRes2.getString("artikel");
 			double preis = dbRes2.getDouble("preis");
-			html +="<tr> <td> <a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'> <img src='../img/caipi.jpg' height='100px' /></a>"
+			html +="<tr> <td rowspan='2'> <a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'> <img src='../img/caipi.jpg' height='100px' /></a>"
 					+ "<a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'>"+artikel +"</a> "
-					+ "</td> <td>Menge: "+menge +"</td> <td>Einzelpreis: "+preis+"</td> </tr>" ;
+					+ "</td> <td>Menge: "+menge +"</td> "
+					+ "<td>Einzelpreis: "+preis+"</td> </tr>" ;
+			html += "<tr> <td> <button type='submit' name='btnBewerten' value=1 />Bewerten Sie hier das Produkt </button>  </td> </tr>";
+			
 		}
 		return html;
 	}
 	
-	public String test(int kundennr) throws NoConnectionException, SQLException {
+	public String getAllBestellung(int kundennr) throws NoConnectionException, SQLException {
 		String html="";
 		int bestellnrAlt=0;
 		String sqlKundennr="select bestellnr from allbestellung where kundennr="+kundennr+" group by bestellnr ORDER by bestellnr DESC";
@@ -145,7 +148,7 @@ public class AllBestellungBean {
 					html+=" <td>Bestellnummer: "+bestellnr+" </td></tr>";
 					html+="<tr><td>"+getVersandadresse(bestellnr)+"</td></tr>";
 					html+= getBestellung(bestellnr);
-					html+="</table>";
+					html+="</table><br><br><br>";
 				}
 				bestellnrAlt=bestellnr;
 			}	

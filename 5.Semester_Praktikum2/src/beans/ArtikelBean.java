@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 
 import javax.naming.directory.SearchResult;
 
@@ -18,103 +19,165 @@ public class ArtikelBean {
 	int clicks;
 	String beschreibung;
 	String herstellerlink;
-	
-	String searchResult="";
-	
+	double bewertungsum;
+	double bewertunganzahl;
+
+	String searchResult = "";
+
+	String eingabeMerker;
+	String katLowerMerker;
+
 	Connection dbConn;
-	
+
 	public String searchBarKategorie() throws NoConnectionException, SQLException {
-		String sql="select kategorie from artikel group by kategorie";
-		String html="<select name='kategorieDropdown'>";
-		html += "<option value='Alle'>"+"Alle"+"</option>";
+		String sql = "select kategorie from artikel group by kategorie";
+		String html = "<select name='kategorieDropdown'>";
+		html += "<option value='Alle'>" + "Alle" + "</option>";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		while (dbRes.next()) {
 			String kategorie = dbRes.getString("kategorie").trim();
 			String kategorieLower = kategorie.toLowerCase();
-			html += "<option value='"+kategorieLower+"'>"+kategorie+"</option>";
+			html += "<option value='" + kategorieLower + "'>" + kategorie + "</option>";
 		}
 		html += "</select>";
 		return html;
 	}
-	
+
 	public void searchAll(String eingabe) throws NoConnectionException, SQLException {
-		String sql = "select artikelnr,artikel,preis,lager from artikel where artikelLower like '%"+eingabe.toLowerCase() +"%'";
+		eingabeMerker = eingabe;
+		katLowerMerker = "alle";
+		String sql = "select artikelnr,artikel,preis,lager,bewertungsum,bewertunganzahl from artikel where artikelLower like '%"
+				+ eingabe.toLowerCase() + "%' order by (bewertungsum/bewertunganzahl)desc";
 		search(sql);
 	}
-	
-	public void searchKategorie(String eingabe,String katLower) throws NoConnectionException, SQLException{
-		String sql = "select artikelnr,artikel,preis,kategorie,lager from artikel where artikelLower like '%"+eingabe.toLowerCase() +"%' and kategorieLower like '%"+katLower+"%'";
+
+	public void searchKategorie(String eingabe, String katLower) throws NoConnectionException, SQLException {
+		eingabeMerker = eingabe;
+		katLowerMerker = katLower;
+		String sql = "select artikelnr,artikel,preis,kategorie,lager,bewertungsum,bewertunganzahl from artikel where artikelLower like '%"
+				+ eingabe.toLowerCase() + "%' and kategorieLower like '%" + katLower + "%'";
 		search(sql);
 	}
-	
+
+	public void searchPreisklasse(String preisklasse) throws NoConnectionException, SQLException {
+		String sql = "";
+		if (preisklasse.equals("alle")) {
+			if (katLowerMerker.equals("alle")) {
+				sql = "select artikelnr,artikel,preis,lager,bewertungsum,bewertunganzahl from artikel where artikelLower like '%"
+						+ eingabeMerker.toLowerCase() + "%'";
+				search(sql);
+			} else {
+				sql = "select artikelnr,artikel,preis,kategorie,lager,bewertungsum,bewertunganzahl from artikel where artikelLower like '%"
+						+ eingabeMerker.toLowerCase() + "%' and kategorieLower like '%" + katLowerMerker + "%'";
+				search(sql);
+			}
+		} else {
+			if (katLowerMerker.equals("alle")) {
+				sql = "select artikelnr,artikel,preis,lager,bewertungsum,bewertunganzahl from artikel where " + preisklasse
+						+ " and artikelLower like '%" + eingabeMerker.toLowerCase() + "%'";
+				search(sql);
+			} else {
+				sql = "select artikelnr,artikel,preis,kategorie,lager,bewertungsum,bewertunganzahl from artikel where " + preisklasse
+						+ " and artikelLower like '%" + eingabeMerker.toLowerCase() + "%' and kategorieLower like '%"
+						+ katLowerMerker + "%'";
+				search(sql);
+			}
+		}
+
+	}
+
 	public void search(String sql) throws NoConnectionException, SQLException {
-		String html="<table>";
-		int a=0;
+		String html = "<table>";
+		int a = 0;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
-		while(dbRes.next()) {
-			if (a%2==0)html+="<tr>";
+		while (dbRes.next()) {
+			if (a % 2 == 0)
+				html += "<tr>";
 			int artikelnr = dbRes.getInt("artikelnr");
 			String artikel = dbRes.getString("artikel").trim();
 			double preis = dbRes.getDouble("preis");
-			html += "<td><button type='submit' name='btnArtikel' value='"+artikelnr+"'>"+"<img src='../img/caipi.jpg' height='100px' />"+artikel+"</button>";
+			double bewertungsum = dbRes.getInt("bewertungsum");
+			double bewertunganzahl = dbRes.getInt("bewertunganzahl");
+			html += "<td><button type='submit' name='btnArtikel' value='" + artikelnr + "'>"
+					+ "<img src='../img/caipi.jpg' height='100px' /><br>" + artikel;
+			if (bewertunganzahl==1) {
+				html+="<br> NEU!";
+			}else { 
+				double bewertung = bewertungsum/(bewertunganzahl-1);
+				DecimalFormat f = new DecimalFormat("#0.0");
+				html+= "<br>Bewertung:"+f.format(bewertung); 
+				}
+			html+= "</button>";
 			int lager = dbRes.getInt("lager");
-			if(lager>=10)html += "Auf Lager";
-			else if(lager>=1)html += "Nur noch wenige Verfügbar";
-			else html += "Ausverkauft";
-			html +="</td>";
-			if (a%2==1)html+="</tr>";
+			if (lager >= 10)
+				html += "Auf Lager";
+			else if (lager >= 1)
+				html += "Nur noch wenige Verfügbar";
+			else
+				html += "Ausverkauft";
+			html += "</td>";
+			if (a % 2 == 1)
+				html += "</tr>";
 			a++;
 		}
 		html += "</table>";
 		setSearchResult(html);
 	}
 	
-	public void setSearchResult(String html) {
-		searchResult=html;
+	public String bewertung() {
+		if (this.bewertunganzahl==1)return "NEU!";
+		double bewertung = this.bewertungsum / (this.bewertunganzahl-1);
+		DecimalFormat f = new DecimalFormat("#0.0"); 
+		return "Bertung: "+ f.format(bewertung);
 	}
-	
+
+	public void setSearchResult(String html) {
+		searchResult = html;
+	}
+
 	public String getSearchResult() {
 		return searchResult;
 	}
-	
+
 	public void getAllInfo(int artikelNr) throws NoConnectionException, SQLException {
-		String sql = "select artikelnr,artikel,kategorie, preis,beschreibung,clicks from artikel where artikelnr ="+artikelNr;
+		String sql = "select artikelnr,artikel,kategorie, preis,beschreibung,clicks,bewertungsum,bewertunganzahl from artikel where artikelnr ="
+				+ artikelNr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
-		this.artikelnr=dbRes.getInt("artikelnr");
-		this.artikel=dbRes.getString("artikel");
-		this.kategorie=dbRes.getString("kategorie");
-		this.preis=dbRes.getDouble("preis");
-		this.beschreibung=dbRes.getString("beschreibung");
-		this.clicks=dbRes.getInt("clicks");
+		this.artikelnr = dbRes.getInt("artikelnr");
+		this.artikel = dbRes.getString("artikel");
+		this.kategorie = dbRes.getString("kategorie");
+		this.preis = dbRes.getDouble("preis");
+		this.beschreibung = dbRes.getString("beschreibung");
+		this.clicks = dbRes.getInt("clicks");
+		this.bewertungsum= dbRes.getDouble("bewertungsum");
+		this.bewertunganzahl= dbRes.getDouble("bewertunganzahl");
+		
 	}
-	
+
 	public int maxClicksArtikel() throws NoConnectionException, SQLException {
-		String sql="select max(clicks) as clicks from artikel";
+		String sql = "select max(clicks) as clicks from artikel";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
-		int clicks =dbRes.getInt("clicks");
-		sql = "select artikelnr from artikel where clicks ="+clicks;
+		int clicks = dbRes.getInt("clicks");
+		sql = "select artikelnr from artikel where clicks =" + clicks;
 		dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
 		int artikelnr = dbRes.getInt("artikelnr");
 		return artikelnr;
 	}
-	
+
 	public void increaseClick(int artikelNr) throws NoConnectionException, SQLException {
-		String sql = "select clicks from artikel where artikelnr ="+artikelNr;
+		String sql = "select clicks from artikel where artikelnr =" + artikelNr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
-		int tempClicks = dbRes.getInt("clicks")+1;
-		
-		sql = "update artikel set clicks="+tempClicks+ " where artikelnr="+artikelNr;
+		int tempClicks = dbRes.getInt("clicks") + 1;
+
+		sql = "update artikel set clicks=" + tempClicks + " where artikelnr=" + artikelNr;
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
 	}
 
-	
-	
-	
 	public int getArtikelnr() {
 		return artikelnr;
 	}
@@ -162,11 +225,5 @@ public class ArtikelBean {
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
 	}
-	
-	
-	
-	
-	
-	
-	
+
 }

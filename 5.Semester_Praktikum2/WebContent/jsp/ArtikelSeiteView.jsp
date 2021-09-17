@@ -33,6 +33,7 @@ out.print("<h1>"+ ab.getArtikel()+"</h1>");
 	</tr>
 	<tr>
 		<td><%out.print(ab.getBeschreibung()); %></td>
+		<td><% out.print(ab.bewertung()); %> </td>
 	</tr>
 </table>
 

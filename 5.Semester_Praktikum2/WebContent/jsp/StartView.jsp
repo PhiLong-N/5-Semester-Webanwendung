@@ -60,6 +60,16 @@
 			</td>
 		</tr>
 	</table>
+	
+		<br><br><br><br>
+		
+	<form action="./ArtikelSeiteView.jsp" method="get">
+	
+	<%out.print(gb.trend()); %>
+	
+	</form>
+	
+	
 
 </body>
 </html>
