@@ -15,13 +15,11 @@ public class GUIBean {
 	public String falseLogin() {
 		String html="";
 		html +="<form action='./StartAccountAppl.jsp' method='get'>\n";
-		html +="<table>\n";
-		html +="	<tr>\n";
+		html +="<table><tr>";
 		html +="		<td>Bitte melden Sie sich hier an</td>\n";
-		html +="		<td><input type='submit' name='btnAnmelden' value='anmelden' /> </td>\n";
+		html +="		<td><input type='submit' name='btnAnmelden' value='anmelden' /> </td>";
 		html +="		<td> Oder erstellen Sie hier einen neuen Account.</td>\n";
 		html +="		<td><input type='submit' name='btnRegistrieren' value='registrieren' /> </td>\n";
-		html +="	</tr>\n";
 		html +="</table>\n";
 		html +="</form>\n";
 		return html;
@@ -44,11 +42,16 @@ public class GUIBean {
 	}
 	
 
-	public String lastArtikel() {
+	public String lastArtikel(int artikelnr) throws NoConnectionException, SQLException {
+		String sql = "select artikel from artikel where artikelnr="+artikelnr;
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		dbRes.next();
+		String artikel = dbRes.getString("artikel");
+		
 		String html="Zuletzt Angesehen: ";
-		html += "<button type='submit' name='btnArtikel' value=<''/>";
-		//jsp:getProperty name='acb' property='lastArtikelInt'
-		html += "<img src='../img/caipi.jpg' height='100px' />";
+		html += "<button type='sub"
+				+ "mit' name='btnArtikel' value=<''/>";
+		html += "<img src='../img/caipi.jpg' height='100px' /><br>"+artikel;
 		html += "</button>";
 		return html;
 	}

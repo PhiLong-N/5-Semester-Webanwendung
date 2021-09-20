@@ -126,11 +126,31 @@ public class AllBestellungBean {
 					+ "<a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'>"+artikel +"</a> "
 					+ "</td> <td>Menge: "+menge +"</td> "
 					+ "<td>Einzelpreis: "+preis+"</td> </tr>" ;
-			html += "<tr> <td> <button type='submit' name='btnBewerten' value=1 />Bewerten Sie hier das Produkt </button>  </td> </tr>";
-			
+			html += "<tr> <td>";
+			html += "<form action=\"./MeineBestellungAppl.jsp\" method=\"get\">\r\n"
+					+ "	<select name='bewertung'>\r\n"
+					+ "		<option value=1 >1 Stern</option>\r\n"
+					+ "		<option value=2 >2 Stern</option>\r\n"
+					+ "		<option value=3 >3 Stern</option>\r\n"
+					+ "		<option value=4 >4 Stern</option>\r\n"
+					+ "		<option value=5 >5 Stern</option> </select>";
+			html += "</td> "
+					+ "<td> <button type='submit' name='btnBewerten' value="+artikelnr+" />Bewertung Abgeben </button> </form>  </td> </tr>";
 		}
 		return html;
 	}
+	
+	/*
+	<form action="./MeineBestellungAppl.jsp" method="get">
+	<select name='bewertung'>
+		<option value=1 >1 Stern</option>
+		<option value=2 >2 Stern</option>
+		<option value=3 >3 Stern</option>
+		<option value=4 >4 Stern</option>
+		<option value=5 >5 Stern</option>
+	</select>
+</form>*/
+	
 	
 	public String getAllBestellung(int kundennr) throws NoConnectionException, SQLException {
 		String html="";

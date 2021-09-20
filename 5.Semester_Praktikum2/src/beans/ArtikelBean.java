@@ -30,7 +30,7 @@ public class ArtikelBean {
 	Connection dbConn;
 
 	public String searchBarKategorie() throws NoConnectionException, SQLException {
-		String sql = "select kategorie from artikel group by kategorie";
+		String sql = "select kategorie from artikel group by kategorie order by kategorie asc";
 		String html = "<select name='kategorieDropdown'>";
 		html += "<option value='Alle'>" + "Alle" + "</option>";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
@@ -128,7 +128,7 @@ public class ArtikelBean {
 		if (this.bewertunganzahl==1)return "NEU!";
 		double bewertung = this.bewertungsum / (this.bewertunganzahl-1);
 		DecimalFormat f = new DecimalFormat("#0.0"); 
-		return "Bertung: "+ f.format(bewertung);
+		return "Bewertung: "+ f.format(bewertung);
 	}
 
 	public void setSearchResult(String html) {
@@ -166,6 +166,14 @@ public class ArtikelBean {
 		int artikelnr = dbRes.getInt("artikelnr");
 		return artikelnr;
 	}
+	
+	public String maxClicksArtikelName(int artikelnr) throws NoConnectionException, SQLException {
+		String sql = "select artikel from artikel where artikelnr =" + artikelnr;
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		dbRes.next();
+		String artikel = dbRes.getString("artikel");
+		return artikel;
+	}
 
 	public void increaseClick(int artikelNr) throws NoConnectionException, SQLException {
 		String sql = "select clicks from artikel where artikelnr =" + artikelNr;
@@ -177,7 +185,21 @@ public class ArtikelBean {
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
 	}
-
+	
+	public void updateBewertung(int artikelnr, int bewertung) throws NoConnectionException, SQLException {
+		String sql = "select bewertungsum, bewertunganzahl from artikel where artikelnr="+artikelnr;
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		dbRes.next();
+		int bewertungsum = dbRes.getInt("bewertungsum")+bewertung;
+		int bewertunganzahl = dbRes.getInt("bewertunganzahl")+1;
+		
+		sql = "update artikel set bewertungsum="+bewertungsum+", bewertunganzahl="+bewertunganzahl+"where artikelnr="+artikelnr;
+		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
+		prep.executeUpdate();
+	}
+	
+	
+	
 	public int getArtikelnr() {
 		return artikelnr;
 	}

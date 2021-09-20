@@ -17,9 +17,10 @@ public class AppInstallArtikelTable {
 	}
 	
 	public void doSomething() throws SQLException, ClassNotFoundException{
-		dropArtikelTable();
-		createArtikelTable();	
-		insert();
+		//dropArtikelTable();
+		//createArtikelTable();	
+		//insert();
+		insert1();
 	}
 	
 	public void createArtikelTable() throws SQLException {
@@ -79,6 +80,89 @@ public class AppInstallArtikelTable {
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Switch erfolgreich hinzugefügt");
+		
+		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,lager,bewertungsum,bewertunganzahl) VALUES ('Turnschuh','turnschuh','Bekleidung','bekleidung',99,'ein Nikeschuh',11,227,99)";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Turnschuh erfolgreich hinzugefügt");
+	}
+	
+	
+	public void insert1() throws SQLException {
+/*
+		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Digitalkamera','digitalkamera','Elektronik','elektronik', 189.99,15,'Kamera',500,243,85)";
+		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		
+		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Nvidia GTX 3060','nvidia gtx 3060','Elektronik', 'elektronik' ,800.00,5000,'Grafikkarte' ,20 ,1500 , 1200 )";
+		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		
+		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES('Ray Ban Sonnenbrille','ray ban sonnenbrille', 'Accessoire', 'accessoire', 350.49, 55 , 'eine sonnenBrille', 3,830,197 )";
+		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Duden', 'duden', 'Bücher', 'bücher', 30.00, 37, 'Wörterbuch', 124, 1048, 952)";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		*/
+		
+		
+		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('UNO', 'uno', 'Spielzeug', 'spielzeug', 15.00, 98, 'Kartenspiel', 56, 865, 647)";
+		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ( 'Super Mario Puppe' ,'super mario puppe' ,'Spielzeug'  ,'spielzeug',100.00,1000 ,'Plüschspielzeug',100,800,500)";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Kaffeevollautomat', 'kaffeevollautomat', 'Haushalt', 'haushalt', 599.00,78, 'Kaffeemaschiene', 69, 43, 16)";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Wasserkocher', 'wasserkocher', 'Haushalt', 'haushalt', 32.99, 123, 'Kochen', 431, 45, 21) ";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Campingset' ,'campingset','Freizeit' ,'freizeit',40.00, 1000,'Campingset' ,20  ,400  ,250  )";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('3 Kg Hantel', '3 kg hantel', 'Sport', 'sport', 15.15, 8, 'Sporthantel die 3kg wiegt', 15, 73,22)";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('OP-Maske', 'op-maske', 'Bekleidung', 'bekleidung', 9.45, 6164, 'Corona', 436, 794,263) ";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ( 'Schreibtisch' ,'schreibtisch','Wohnen'  ,'wohnen'  ,80.00, 400 ,'Schreibtisch groß'  ,20  ,400  ,210    ) ";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		
+	}
+	
+	public void insert2() {
+		/*
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ";
+		prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
+		System.out.println("Artikel hinzugefügt.");
+		*/
 	}
 	
 

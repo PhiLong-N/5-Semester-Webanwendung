@@ -1,0 +1,29 @@
+@charset "UTF-8";
+
+p.sternebewertung {
+ float: Left;
+}
+
+p.sternebewertung:not(:checked) > input {
+ display: None;
+}
+
+p.sternebewertung:not(:checked) > label {
+ float: Right;
+ width: 1em;
+ font-size: 200%;
+ color: #D0D0D0;
+}
+
+p.sternebewertung:not(:checked) > label::before {
+ content: '★ ';
+}
+
+p.sternebewertung > input:checked ~ label {
+ color: #FFD700;
+}
+
+p.sternebewertung:not(:checked) > label:hover,
+p.sternebewertung:not(:checked) > label:hover ~ label {
+ color: #FECF41;
+}

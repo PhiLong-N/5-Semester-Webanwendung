@@ -9,6 +9,8 @@ public class ListArtikel {
 	public double einzelpreis;
 	public double gesamtpreis;
 	
+	//für WarenkorbKundeBean
+	
 	public double getGesamtpreis() {
 		return gesamtpreis;
 	}

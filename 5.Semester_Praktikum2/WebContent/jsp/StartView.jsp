@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Online Shop Startseite</title>
+<title>Insight Shop</title>
 </head>
 <body>
 
@@ -14,6 +14,14 @@
 		scope="session" />
 	<jsp:useBean id="ab" class="beans.ArtikelBean"
 		scope="session" />
+		
+		
+		
+	
+	<img src="../img/LogoCut.png" 
+		width="655"/>
+		
+	
 
 
 	<%
@@ -34,7 +42,7 @@
 					out.print(ab.searchBarKategorie());
 					%>
 				</td>
-				<td><input type="text" name="searchBar" value="" /></td>
+				<td><input type="text" name="searchBar" value="" size="83" /></td>
 				<td><input type="submit" name="btnSearch" value="search" /></td>
 			</tr>
 		</table>
@@ -48,13 +56,14 @@
 				if (acb.getLastArtikelInt() == 0) {
 					out.print("Meist Angeschaut: ");
 					int maxArtikel = ab.maxClicksArtikel();
+					String artikel = ab.maxClicksArtikelName(maxArtikel);
 					String html="";
 					html+= "<button type='submit' name='btnArtikel' value="+maxArtikel+" />";
-					html+=	"	<img src='../img/caipi.jpg' height='100px' />";
+					html+=	"	<img src='../img/caipi.jpg' height='100px' /> <br>"+artikel;
 					html+= "</button>";
 					out.print(html);
 				} else
-					out.print(gb.lastArtikel());
+					out.print(gb.lastArtikel(acb.getLastArtikelInt() ));
 				%>
 				</form>
 			</td>
