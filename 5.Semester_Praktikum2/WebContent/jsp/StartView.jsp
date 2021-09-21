@@ -18,12 +18,8 @@
 		
 		
 	
-	<img src="../img/LogoCut.png" 
-		width="655"/>
-		
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>		
 	
-
-
 	<%
 	if (acb.getLogin()) {
 		out.print(gb.trueLogin(acb.getUsername()));
@@ -43,7 +39,7 @@
 					%>
 				</td>
 				<td><input type="text" name="searchBar" value="" size="83" /></td>
-				<td><input type="submit" name="btnSearch" value="search" /></td>
+				<td><button type="submit" name="btnSearch" value="search" />Suchen</button></td>
 			</tr>
 		</table>
 	</form>

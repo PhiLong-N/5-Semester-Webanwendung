@@ -11,6 +11,7 @@
 <jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
 <jsp:useBean id="acb" class="beans.AccountBean" scope="session" />
 		
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
 		
 <%
 String btnArtikel = request.getParameter("btnArtikel");
@@ -46,9 +47,11 @@ String html="<select name='anzahlArtikel'>";
 	html += "</select>";
 	out.print(html);
 %>
-	<button type="submit" name="btnArtikel" value=<%out.print(artikelNr); %> > in den warenkorb </button>
+	<button type="submit" name="btnArtikel" value=<%out.print(artikelNr); %> > In den Warenkorb </button>
 </form>
 
+
+<br><br>
 <a href="StartView.jsp">Zurück zur Startseite</a>
 
 

@@ -17,9 +17,9 @@ public class AppInstallArtikelTable {
 	}
 	
 	public void doSomething() throws SQLException, ClassNotFoundException{
-		//dropArtikelTable();
-		//createArtikelTable();	
-		//insert();
+		dropArtikelTable();
+		createArtikelTable();	
+		insert();
 		insert1();
 	}
 	
@@ -51,7 +51,7 @@ public class AppInstallArtikelTable {
 	}
 	
 	public void insert() throws SQLException {
-		String sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,lager,bewertungsum,bewertunganzahl) VALUES ('Kirschbaum','kirschbaum','Garten','garten',9.99,'ein Kirschbaum',11,227,99)";
+		String sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,lager,bewertungsum,bewertunganzahl) VALUES ('Kirschbluetenbaum','kirschbluetenbaum','Garten','garten',9.99,'ein Kirschbaum',11,227,99)";
 		PreparedStatement prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Baum erfolgreich hinzugefügt");
@@ -76,7 +76,7 @@ public class AppInstallArtikelTable {
 		prep.executeUpdate();
 		System.out.println("Schaufel erfolgreich hinzugefügt");
 		
-		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,lager,bewertungsum,bewertunganzahl) VALUES ('Nintendo Switch','nintendo switch','Elektro','elektro',320.99,'eine Switch',99,13,90,20)";
+		sql = "INSERT INTO artikel (artikel,artikelLower,kategorie,kategorieLower,preis,beschreibung,clicks,lager,bewertungsum,bewertunganzahl) VALUES ('Nintendo Switch','nintendo switch','Elektronik','elektronik',320.99,'eine Switch',99,13,90,20)";
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Switch erfolgreich hinzugefügt");
@@ -89,21 +89,21 @@ public class AppInstallArtikelTable {
 	
 	
 	public void insert1() throws SQLException {
-/*
+
 		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Digitalkamera','digitalkamera','Elektronik','elektronik', 189.99,15,'Kamera',500,243,85)";
 		PreparedStatement prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");
 		
 		
-		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Nvidia GTX 3060','nvidia gtx 3060','Elektronik', 'elektronik' ,800.00,5000,'Grafikkarte' ,20 ,1500 , 1200 )";
-		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Nvidia GTX 3060','nvidia gtx 3060','Elektronik', 'elektronik' ,800.00,5000,'Grafikkarte' ,20 ,1500 , 1200 )";
+		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");
 		
 		
-		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES('Ray Ban Sonnenbrille','ray ban sonnenbrille', 'Accessoire', 'accessoire', 350.49, 55 , 'eine sonnenBrille', 3,830,197 )";
-		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES('Ray Ban Sonnenbrille','ray ban sonnenbrille', 'Accessoire', 'accessoire', 350.49, 55 , 'eine sonnenBrille', 3,830,197 )";
+		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");
 		
@@ -111,15 +111,15 @@ public class AppInstallArtikelTable {
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");
-		*/
 		
 		
-		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('UNO', 'uno', 'Spielzeug', 'spielzeug', 15.00, 98, 'Kartenspiel', 56, 865, 647)";
-		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('UNO', 'uno', 'Spielzeug', 'spielzeug', 15.00, 98, 'Kartenspiel', 56, 865, 647)";
+		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");
 		
-		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ( 'Super Mario Puppe' ,'super mario puppe' ,'Spielzeug'  ,'spielzeug',100.00,1000 ,'Plüschspielzeug',100,800,500)";
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ( 'Super Mario Spielzeug' ,'super mario spielzeug' ,'Spielzeug'  ,'spielzeug',100.00,1000 ,'Plüschspielzeug',100,800,500)";
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");
@@ -139,7 +139,7 @@ public class AppInstallArtikelTable {
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");
 		
-		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('3 Kg Hantel', '3 kg hantel', 'Sport', 'sport', 15.15, 8, 'Sporthantel die 3kg wiegt', 15, 73,22)";
+		sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Hantelset', 'hantelset', 'Sport', 'sport', 15.15, 8, 'Sporthantelset aus mehreen Teilen', 15, 73,22)";
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");

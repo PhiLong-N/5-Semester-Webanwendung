@@ -13,6 +13,8 @@
 <jsp:useBean id="wkb" class="beans.WarenkorbKundeBean"
 		scope="session" />
 
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
+
 
 <h1>Bitte prüfen Sie ihre Bestellung</h1>
 

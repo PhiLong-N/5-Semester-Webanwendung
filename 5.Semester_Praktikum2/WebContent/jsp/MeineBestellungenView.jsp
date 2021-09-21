@@ -12,6 +12,8 @@
 		scope="session" />
 <jsp:useBean id="acb" class="beans.AccountBean"
 		scope="session" />
+		
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>		
 
 <a href="StartView.jsp">Zurück zur Startseite</a>
 <br>(Artikelbewertung)

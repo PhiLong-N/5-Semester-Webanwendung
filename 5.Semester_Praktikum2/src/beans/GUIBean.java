@@ -17,9 +17,9 @@ public class GUIBean {
 		html +="<form action='./StartAccountAppl.jsp' method='get'>\n";
 		html +="<table><tr>";
 		html +="		<td>Bitte melden Sie sich hier an</td>\n";
-		html +="		<td><input type='submit' name='btnAnmelden' value='anmelden' /> </td>";
+		html +="		<td><input type='submit' name='btnAnmelden' value='Anmelden' /> </td>";
 		html +="		<td> Oder erstellen Sie hier einen neuen Account.</td>\n";
-		html +="		<td><input type='submit' name='btnRegistrieren' value='registrieren' /> </td>\n";
+		html +="		<td><input type='submit' name='btnRegistrieren' value='Registrieren' /> </td>\n";
 		html +="</table>\n";
 		html +="</form>\n";
 		return html;
@@ -31,9 +31,9 @@ public class GUIBean {
 		html+="<table>";
 		html+="<tr>";
 		html+="<td>Willkommen "+ username+"<td>";
-		html+="		<td><input type='submit' name='btnLogout' value='logout' /></td>";
-		html+="		<td><input type='submit' name='btnWarenkorb' value='warenkorb' /></td>";
-		html+="		<td><input type='submit' name='btnEinstellung' value='einstellung' /></td>";
+		html+="		<td><input type='submit' name='btnLogout' value='Logout' /></td>";
+		html+="		<td><input type='submit' name='btnWarenkorb' value='Warenkorb' /></td>";
+		html+="		<td><input type='submit' name='btnEinstellung' value='Einstellung' /></td>";
 		html+="</tr>";
 		html+="</table>";
 		html+="</form>";

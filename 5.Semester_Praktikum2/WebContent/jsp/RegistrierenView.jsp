@@ -9,7 +9,9 @@
 <body>
 <jsp:useBean id="acb" class="beans.AccountBean" scope="session" />
 
-Erstellen Sie bitte ihren Account!
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
+
+<h4>Erstellen Sie bitte ihren </h4>Account!
 
 <form action="./RegistrierenAppl.jsp" method="get">
 
@@ -34,7 +36,7 @@ Erstellen Sie bitte ihren Account!
 	</tr>
 	<tr>
 		<td></td>
-		<td><input type="submit" name="btnRegistrieren" value="registrieren" /></td>
+		<td><button type="submit" name="btnRegistrieren" value="registrieren" />Registrieren</button></td>
 	</tr>
 </table>
 

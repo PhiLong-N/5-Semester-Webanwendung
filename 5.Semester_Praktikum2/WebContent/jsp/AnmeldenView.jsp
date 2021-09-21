@@ -11,6 +11,8 @@
 
 <jsp:useBean id="acb" class="beans.AccountBean" scope="session" />
 
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>	
+
 	<h4>Bitte melden Sie sich an</h4>
 	<form action="./AnmeldenAppl.jsp" method="get">
 		<table>
@@ -27,11 +29,11 @@
 			</tr>
 			<tr>
 				<td></td>
-				<td><input type="submit" name="btnLogin" value="anmelden" /></td>
+				<td><button type="submit" name="btnLogin" value="anmelden" />Anmelden</button></td>
 			</tr>
 		</table>
 	</form>
-	<a href="http://localhost:8080/A_Praktikum_test/jsp/RegistrierenView.jsp">Noch kein Account? Registrieren Sie sich hier</a> <br>
+	<a href="http://localhost:8080/5.Semester_Praktikum/jsp/RegistrierenView.jsp">Noch kein Account? Registrieren Sie sich hier</a> <br>
 	<a href="./StartView.jsp">Zurück zur Startseite</a>
 </body>
 </html>

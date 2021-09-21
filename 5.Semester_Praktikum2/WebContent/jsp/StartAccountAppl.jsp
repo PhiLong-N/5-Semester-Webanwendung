@@ -22,22 +22,22 @@ if (btnLogout==null)btnLogout="";
 if (btnWarenkorb==null)btnWarenkorb="";
 if (btnEinstellung==null)btnEinstellung="";
 
-if (btnAnmelden.equals("anmelden")){
+if (btnAnmelden.equals("Anmelden")){
 	response.sendRedirect("AnmeldenView.jsp");
 }
-else if (btnRegistrieren.equals("registrieren")){
+else if (btnRegistrieren.equals("Registrieren")){
 	acb.setEmail("");
 	acb.setUsername("");
 	response.sendRedirect("RegistrierenView.jsp");
 }
-else if(btnLogout.equals("logout")){
+else if(btnLogout.equals("Logout")){
 	acb.logout();
 	response.sendRedirect("StartView.jsp");
 }
-else if (btnWarenkorb.equals("warenkorb")){
+else if (btnWarenkorb.equals("Warenkorb")){
 	response.sendRedirect("WarenkorbView.jsp");	
 }
-else if(btnEinstellung.equals("einstellung")){
+else if(btnEinstellung.equals("Einstellung")){
 	response.sendRedirect("EinstellungView.jsp");
 }
 else response.sendRedirect("StartView.jsp");

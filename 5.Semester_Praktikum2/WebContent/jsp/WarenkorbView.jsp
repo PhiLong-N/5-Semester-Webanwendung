@@ -16,7 +16,9 @@
 		scope="session" />
 	<jsp:useBean id="ab" class="beans.ArtikelBean"
 		scope="session" />
-
+		
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>		
+<br><br>
 	Ihr Warenkorb:
 	<br>
 	<br>

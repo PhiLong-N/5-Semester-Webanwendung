@@ -21,14 +21,14 @@ public class AppInstallAccountTable {
 	
 	public void doSomething() throws SQLException, ClassNotFoundException{
 		
-		//dropAccountTable();
-		//createAccountTable();
-		//insertAdmin();
-		//insertKunde();
+		dropAccountTable();
+		createAccountTable();
+		insertAdmin();
+		insertKunde();
 		
 		//maxClicks();
 		//update();
-		force();
+		//force();
 	}
 	
 	

@@ -10,6 +10,8 @@
 
 	<jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
 
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
+
 	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
 	<br><br>
 	

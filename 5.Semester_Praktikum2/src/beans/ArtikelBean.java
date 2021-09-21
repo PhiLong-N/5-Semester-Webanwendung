@@ -55,7 +55,7 @@ public class ArtikelBean {
 		eingabeMerker = eingabe;
 		katLowerMerker = katLower;
 		String sql = "select artikelnr,artikel,preis,kategorie,lager,bewertungsum,bewertunganzahl from artikel where artikelLower like '%"
-				+ eingabe.toLowerCase() + "%' and kategorieLower like '%" + katLower + "%'";
+				+ eingabe.toLowerCase() + "%' and kategorieLower like '%" + katLower + "%' order by (bewertungsum/bewertunganzahl)desc";
 		search(sql);
 	}
 
@@ -64,22 +64,22 @@ public class ArtikelBean {
 		if (preisklasse.equals("alle")) {
 			if (katLowerMerker.equals("alle")) {
 				sql = "select artikelnr,artikel,preis,lager,bewertungsum,bewertunganzahl from artikel where artikelLower like '%"
-						+ eingabeMerker.toLowerCase() + "%'";
+						+ eingabeMerker.toLowerCase() + "%' order by (bewertungsum/bewertunganzahl)desc";
 				search(sql);
 			} else {
 				sql = "select artikelnr,artikel,preis,kategorie,lager,bewertungsum,bewertunganzahl from artikel where artikelLower like '%"
-						+ eingabeMerker.toLowerCase() + "%' and kategorieLower like '%" + katLowerMerker + "%'";
+						+ eingabeMerker.toLowerCase() + "%' and kategorieLower like '%" + katLowerMerker + "%' order by (bewertungsum/bewertunganzahl)desc";
 				search(sql);
 			}
 		} else {
 			if (katLowerMerker.equals("alle")) {
 				sql = "select artikelnr,artikel,preis,lager,bewertungsum,bewertunganzahl from artikel where " + preisklasse
-						+ " and artikelLower like '%" + eingabeMerker.toLowerCase() + "%'";
+						+ " and artikelLower like '%" + eingabeMerker.toLowerCase() + "%' order by (bewertungsum/bewertunganzahl)desc";
 				search(sql);
 			} else {
 				sql = "select artikelnr,artikel,preis,kategorie,lager,bewertungsum,bewertunganzahl from artikel where " + preisklasse
 						+ " and artikelLower like '%" + eingabeMerker.toLowerCase() + "%' and kategorieLower like '%"
-						+ katLowerMerker + "%'";
+						+ katLowerMerker + "%' order by (bewertungsum/bewertunganzahl)desc";
 				search(sql);
 			}
 		}
@@ -100,6 +100,7 @@ public class ArtikelBean {
 			double bewertunganzahl = dbRes.getInt("bewertunganzahl");
 			html += "<td><button type='submit' name='btnArtikel' value='" + artikelnr + "'>"
 					+ "<img src='../img/caipi.jpg' height='100px' /><br>" + artikel;
+			html +="<br>Preis: "+preis;
 			if (bewertunganzahl==1) {
 				html+="<br> NEU!";
 			}else { 
@@ -107,15 +108,16 @@ public class ArtikelBean {
 				DecimalFormat f = new DecimalFormat("#0.0");
 				html+= "<br>Bewertung:"+f.format(bewertung); 
 				}
-			html+= "</button>";
+			html+= "<br>";
 			int lager = dbRes.getInt("lager");
 			if (lager >= 10)
-				html += "Auf Lager";
+				html += "<font color='green'>Auf Lager</font>";
 			else if (lager >= 1)
-				html += "Nur noch wenige Verfügbar";
+				html += "<font color='orange'>Nur noch wenige Verfügbar</font>";
 			else
-				html += "Ausverkauft";
+				html += "<font color='red'>Ausverkauft</font>";
 			html += "</td>";
+			html+= "</button>";
 			if (a % 2 == 1)
 				html += "</tr>";
 			a++;
@@ -250,7 +252,7 @@ public class ArtikelBean {
 		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
 		
-		sql = "update account set lastvisit =0 where lastvisit="+artikelNr;		
+		sql = "update account set lastvisitint =0 where lastvisitint="+artikelNr;		
 		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();	}
 

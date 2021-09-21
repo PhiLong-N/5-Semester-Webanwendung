@@ -8,6 +8,7 @@
 </head>
 <body>
 
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
 
 
 <form action="./AdresseAndernAppl.jsp" method="get">
