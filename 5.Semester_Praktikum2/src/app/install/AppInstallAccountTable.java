@@ -21,13 +21,14 @@ public class AppInstallAccountTable {
 	
 	public void doSomething() throws SQLException, ClassNotFoundException{
 		
-		dropAccountTable();
-		createAccountTable();
-		insertAdmin();
-		insertKunde();
+		//dropAccountTable();
+		//createAccountTable();
+		//insertAdmin();
+		//insertKunde();
 		
 		//maxClicks();
 		//update();
+		force();
 	}
 	
 	
@@ -91,6 +92,12 @@ public class AppInstallAccountTable {
 		PreparedStatement prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Gast hinzugefügt");
+	}
+	
+	public void force() throws SQLException {
+		String sql = "update account set lastvisitint =0 where accnr= 2";
+		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		prep.executeUpdate();
 	}
 	
 }

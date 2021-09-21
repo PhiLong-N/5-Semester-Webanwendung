@@ -198,6 +198,64 @@ public class ArtikelBean {
 		prep.executeUpdate();
 	}
 	
+	public String setAllArtikel(String eingabe) {
+		String sql = "select artikelnr, artikel,lager from artikel  where artikelLower like '%"
+				+ eingabe.toLowerCase() + "%'  order by artikel asc";
+		return sql;
+	}
+	
+	public void setLagerArtikel(String eingabe) throws NoConnectionException, SQLException {
+		String sql = setAllArtikel(eingabe);
+		String html="";
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		while(dbRes.next()) {
+			int artikelnr = dbRes.getInt("artikelnr");
+			String artikel = dbRes.getString("artikel");
+			int lager = dbRes.getInt("lager");
+			
+			html += "<tr><td>"+artikel+"</td><td>Aktuelle Verfügbarkeit: "+lager+"</td> <td><input type='text' name='lagerNeu"+artikelnr+"' value='' /></td> <td> <button type='submit' name='btnArtikelAnzahl' value="+artikelnr+">Lageranzahl ändern</button></td></tr>";
+		}
+		setSearchResult(html);
+	}
+	
+	public void updateLager(int artikelNr, int eingabe) throws NoConnectionException, SQLException {
+		String sql = "update artikel set lager="+eingabe+"where artikelnr="+artikelNr;		
+		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
+		prep.executeUpdate();
+	}
+	
+	public void setDeleteArtikel(String eingabe) throws NoConnectionException, SQLException {
+		String sql = setAllArtikel(eingabe);
+		String html="";
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		while(dbRes.next()) {
+			int artikelnr = dbRes.getInt("artikelnr");
+			String artikel = dbRes.getString("artikel");
+			
+			html += "<tr><td>"+artikel+"</td><td> <button type='submit' name='btnArtikelLoschen' value="+artikelnr+">Artikel Löschen</button></td></tr>";
+		}
+		setSearchResult(html);
+	}
+	
+	public void deleteArtikel(int artikelNr) throws NoConnectionException, SQLException {
+		String sql = "delete from artikel where artikelnr="+artikelNr;
+		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
+		prep.executeUpdate();
+		
+		sql = "delete from warenkorbkunde where artikelnr="+artikelNr;
+		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
+		prep.executeUpdate();
+		
+		sql = "delete from allbestellung where artikelnr="+artikelNr;
+		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
+		prep.executeUpdate();
+		
+		sql = "update account set lastvisit =0 where lastvisit="+artikelNr;		
+		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
+		prep.executeUpdate();	}
+
+	
+	
 	
 	
 	public int getArtikelnr() {
