@@ -18,7 +18,9 @@
 		
 		
 	
-<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>		
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>		
+
+<br><br>
 	
 	<%
 	if (acb.getLogin()) {
@@ -38,7 +40,7 @@
 					out.print(ab.searchBarKategorie());
 					%>
 				</td>
-				<td><input type="text" name="searchBar" value="" size="83" /></td>
+				<td><input type="text" name="searchBar" value="" size="70" /></td>
 				<td><button type="submit" name="btnSearch" value="search" />Suchen</button></td>
 			</tr>
 		</table>
@@ -50,12 +52,12 @@
 			<form action='./ArtikelSeiteView.jsp' method='get'>
 				<%
 				if (acb.getLastArtikelInt() == 0) {
-					out.print("Meist Angeschaut: ");
+					out.print("<h2>Meist Angeschaut: </h2>");
 					int maxArtikel = ab.maxClicksArtikel();
 					String artikel = ab.maxClicksArtikelName(maxArtikel);
 					String html="";
 					html+= "<button type='submit' name='btnArtikel' value="+maxArtikel+" />";
-					html+=	"	<img src='../img/caipi.jpg' height='100px' /> <br>"+artikel;
+					html+=	"<img src='../img/"+artikel.toLowerCase().trim()+".jpg' width='200' height='200px' /> <br>"+artikel;
 					html+= "</button>";
 					out.print(html);
 				} else
@@ -66,7 +68,7 @@
 		</tr>
 	</table>
 	
-		<br><br><br><br>
+		<br><br>
 		
 	<form action="./ArtikelSeiteView.jsp" method="get">
 	

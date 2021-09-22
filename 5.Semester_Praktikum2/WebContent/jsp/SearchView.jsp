@@ -11,7 +11,7 @@
 	<jsp:useBean id="ab" class="beans.ArtikelBean"
 		scope="session" />
 		
-		<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
+		<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 	
 	
 	<form action="./StartSearchAppl.jsp" method="get">

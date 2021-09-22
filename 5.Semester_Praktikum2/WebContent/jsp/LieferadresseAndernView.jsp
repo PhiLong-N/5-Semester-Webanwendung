@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 
 <form action="./LieferadresseAndernAppl.jsp" method="get">
 
@@ -29,12 +29,9 @@
 		<td>Plz: </td>
 		<td><input type="text" name="plz" value="" /></td>
 	</tr>
-	<tr>
-		<td><input type="submit" name="btnAdresseAndern" value="adresseAndern" /></td>
-	</tr>	
+	</table>
 	
-
-</table>
+	<button type="submit" name="btnAdresseAndern" value="adresseAndern"> Lieferadresse ändern</button>
 
 </body>
 </html>

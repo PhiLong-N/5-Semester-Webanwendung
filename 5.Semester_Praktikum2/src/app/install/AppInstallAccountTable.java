@@ -58,14 +58,14 @@ public class AppInstallAccountTable {
 	}
 	
 	public void insertAdmin() throws SQLException {
-		String sql = "INSERT INTO account (email,username,password,admin) VALUES('a@admin.de','a.admin','geheim',true)";
+		String sql = "INSERT INTO account (email,username,password,admin,adresse,stadt,plz) VALUES('a@admin.de','a.admin','geheim',true,'koenigs str.15','ludwigshafen',67067)";
 		PreparedStatement prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Admin hinzugefügt");
 	}
 	
 	public void insertKunde() throws SQLException{
-		String sql = "INSERT INTO account (email,username,password) VALUES('b@kunde.de','b.kunde','geheim')";
+		String sql = "INSERT INTO account (email,username,password,adresse, stadt,plz) VALUES('b@kunde.de','b.kunde','geheim','schul 15b','mannheim',67059)";
 		PreparedStatement prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Gast hinzugefügt");

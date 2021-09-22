@@ -13,7 +13,7 @@
 <jsp:useBean id="wkb" class="beans.WarenkorbKundeBean"
 		scope="session" />
 
-<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 
 
 <h1>Bitte prüfen Sie ihre Bestellung</h1>
@@ -35,14 +35,15 @@ out.print(acb.getPlz());
 %>
 <br><br>
 <form action="./KasseAppl.jsp" method="get">
-	<button type="submit" name="btnLieferadresseAndern" value="lieferadresseandern"> Lieferandresse ändern</button>
+	<button type="submit" name="btnLieferadresseAndern" value="lieferadresseandern"> Lieferadresse ändern</button>
 </form>
 
 </td>
 <td>
 <p>Zahlungsart:	 </p>
-Kreditkarte
-<br><br><br><br><br><br>
+Rechnung
+<br>Die Rechnung kommt mit Ihrer Bestellung.
+<br><br><br><br><br>
 </td>
 </table>
 <br>

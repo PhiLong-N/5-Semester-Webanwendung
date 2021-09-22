@@ -21,6 +21,7 @@ public class ArtikelBean {
 	String herstellerlink;
 	double bewertungsum;
 	double bewertunganzahl;
+	int lager;
 
 	String searchResult = "";
 
@@ -92,14 +93,14 @@ public class ArtikelBean {
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		while (dbRes.next()) {
 			if (a % 2 == 0)
-				html += "<tr>";
+				html += "<tr><td width='140px'></td>";
 			int artikelnr = dbRes.getInt("artikelnr");
 			String artikel = dbRes.getString("artikel").trim();
 			double preis = dbRes.getDouble("preis");
 			double bewertungsum = dbRes.getInt("bewertungsum");
 			double bewertunganzahl = dbRes.getInt("bewertunganzahl");
 			html += "<td><button type='submit' name='btnArtikel' value='" + artikelnr + "'>"
-					+ "<img src='../img/caipi.jpg' height='100px' /><br>" + artikel;
+					+ "<img src='../img/"+artikel.toLowerCase()+".jpg' height='250px' width='250' /><br>" + artikel;
 			html +="<br>Preis: "+preis;
 			if (bewertunganzahl==1) {
 				html+="<br> NEU!";
@@ -142,7 +143,7 @@ public class ArtikelBean {
 	}
 
 	public void getAllInfo(int artikelNr) throws NoConnectionException, SQLException {
-		String sql = "select artikelnr,artikel,kategorie, preis,beschreibung,clicks,bewertungsum,bewertunganzahl from artikel where artikelnr ="
+		String sql = "select artikelnr,artikel,kategorie, preis,beschreibung,clicks,lager,bewertungsum,bewertunganzahl from artikel where artikelnr ="
 				+ artikelNr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
@@ -152,6 +153,7 @@ public class ArtikelBean {
 		this.preis = dbRes.getDouble("preis");
 		this.beschreibung = dbRes.getString("beschreibung");
 		this.clicks = dbRes.getInt("clicks");
+		this.lager = dbRes.getInt("lager");
 		this.bewertungsum= dbRes.getDouble("bewertungsum");
 		this.bewertunganzahl= dbRes.getDouble("bewertunganzahl");
 		
@@ -254,7 +256,24 @@ public class ArtikelBean {
 		
 		sql = "update account set lastvisitint =0 where lastvisitint="+artikelNr;		
 		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
-		prep.executeUpdate();	}
+		prep.executeUpdate();
+	}
+	
+	
+	public void insertNewArtikel(String artikel, String kategorie, double preis, String beschreibung, int lager) throws SQLException {
+		String sql = "insert into artikel (artikel, artikellower, kategorie, kategorielower, preis , beschreibung, lager) "
+				+ "VALUES (?,?,?,?,?,?,?) ";
+		this.dbConn = new PostgreSQLAccess().getConnection();
+		PreparedStatement prep = this.dbConn.prepareStatement(sql);
+		prep.setString(1, artikel);
+		prep.setString(2, artikel.toLowerCase());
+		prep.setString(3, kategorie);
+		prep.setString(4, kategorie.toLowerCase());
+		prep.setDouble(5, preis);
+		prep.setString(6, beschreibung);
+		prep.setInt(7, lager);
+		prep.executeUpdate();
+	}
 
 	
 	
@@ -266,6 +285,14 @@ public class ArtikelBean {
 
 	public void setArtikelnr(int artikelnr) {
 		this.artikelnr = artikelnr;
+	}
+
+	public int getLager() {
+		return lager;
+	}
+
+	public void setLager(int lager) {
+		this.lager = lager;
 	}
 
 	public String getArtikel() {

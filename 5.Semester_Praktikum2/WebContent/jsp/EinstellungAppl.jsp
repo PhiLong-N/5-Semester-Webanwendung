@@ -18,12 +18,16 @@ String btnLoschen = request.getParameter("btnLoschen");
 String btnMeineBestellungen = request.getParameter("btnMeineBestellungen");
 String btnArtikelLoschen = request.getParameter("btnArtikelLoschen");
 String btnLagerAndern = request.getParameter("btnLagerAndern");
+String btnArtikelHinzufugen = request.getParameter("btnArtikelHinzufugen");
+String btnAdminHinzufugen = request.getParameter("btnAdminHinzufugen");
 
 if(btnAdresse==null)btnAdresse="";
 if(btnLoschen==null)btnLoschen="";
 if(btnMeineBestellungen==null)btnMeineBestellungen="";
 if(btnArtikelLoschen==null)btnArtikelLoschen="";
 if(btnLagerAndern==null)btnLagerAndern="";
+if(btnArtikelHinzufugen==null)btnArtikelHinzufugen="";
+if(btnAdminHinzufugen==null)btnAdminHinzufugen="";
 
 
 if (btnAdresse.equals("adresse")){
@@ -43,6 +47,13 @@ else if(btnArtikelLoschen.equals("artikelLoschen")){
 else if(btnLagerAndern.equals("lagerAndern")){
 	ab.setLagerArtikel("");
 	response.sendRedirect("LagerAnzahlAndernView.jsp");
+}
+else if(btnArtikelHinzufugen.equals("artikelHinzufugen")){
+	response.sendRedirect("ArtikelHinzufugenView.jsp");
+}
+else if(btnAdminHinzufugen.equals("adminHinzufugen")){
+	acb.setAdmin(true);
+	response.sendRedirect("RegistrierenView.jsp");
 }
 else response.sendRedirect("StartView.jsp");
 

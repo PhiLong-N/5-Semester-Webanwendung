@@ -51,14 +51,15 @@ public class GUIBean {
 		String html="Zuletzt Angesehen: ";
 		html += "<button type='sub"
 				+ "mit' name='btnArtikel' value=<''/>";
-		html += "<img src='../img/caipi.jpg' height='100px' /><br>"+artikel;
+		html += "<img src='../img/"+artikel.toLowerCase().trim()+".jpg' height='200px' width='200px' /><br>"+artikel;
 		html += "</button>";
 		return html;
+		
 	}
 	
 	
 	public String trend() throws NoConnectionException, SQLException {
-		String html="<table><tr><td>Im Trend</td></tr> <tr>";
+		String html="<table><tr><td><h2>Im Trend</h2></td></tr> <tr>";
 		String sql = "select artikelnr,artikel from artikel order by clicks desc";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		int counter=0;
@@ -66,7 +67,7 @@ public class GUIBean {
 			counter+=1;
 			int artikelnr=dbRes.getInt("artikelnr");
 			String artikel = dbRes.getString("artikel");
-			html+="<td><button type='submit' name='btnArtikel' value="+artikelnr+"><img src='../img/caipi.jpg' height='100px' /><br>"+artikel+"</button> </td>";
+			html+="<td><button type='submit' name='btnArtikel' value="+artikelnr+"><img src='../img/"+artikel.toLowerCase().trim()+".jpg' height='140px' width='140px' /><br>"+artikel+"</button> </td>";
 		}
 		
 		html+="</tr></table>";

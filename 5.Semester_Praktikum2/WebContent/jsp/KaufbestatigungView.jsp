@@ -8,11 +8,11 @@
 </head>
 <body>
 
-<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 
 <h1>Vielen Dank für ihre Bestellung!</h1>
 <p>Ihre Bestellung ist eingegangen und wird zur Zeit bearbeitet. 
-An Ihre E-Mail-Adresse werden die Details der Bestellung gesendet.
+<br>An Ihre E-Mail-Adresse werden die Details Ihrer Bestellung gesendet.
  </p>
 
 <br>

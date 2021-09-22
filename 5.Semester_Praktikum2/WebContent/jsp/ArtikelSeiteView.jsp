@@ -11,7 +11,7 @@
 <jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
 <jsp:useBean id="acb" class="beans.AccountBean" scope="session" />
 		
-<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 		
 <%
 String btnArtikel = request.getParameter("btnArtikel");
@@ -29,20 +29,28 @@ out.print("<h1>"+ ab.getArtikel()+"</h1>");
 
 <table>
 	<tr>
-		<td>bild</td>
-		<td><%out.print(ab.getPreis());%>Euro</td>
-	</tr>
-	<tr>
-		<td><%out.print(ab.getBeschreibung()); %></td>
-		<td><% out.print(ab.bewertung()); %> </td>
+		<td><% out.print("<img src='../img/"+ab.getArtikel().toLowerCase().trim()+".jpg' height='200px' width='200px' />"); %> </td>
+		<td valign="bottom"><h2><%out.print(ab.getPreis());%>Euro</h2></td>
 	</tr>
 </table>
+<table>
+	<tr><td width='400px'><%out.print(ab.getBeschreibung()); %></td></tr>
+	<tr><td><% out.print(ab.bewertung()); %> </td></tr>
+</table>
+
+<br><br>
 
 <form action="./ArtikelSeiteAppl.jsp" method="get">
 <%
 String html="<select name='anzahlArtikel'>";
-	for (int i=1;i<=30;i++){
-		html += "<option value="+i+">"+i+"</option>";	
+	int lager = ab.getLager();
+	int max=30;
+	int start=1;
+	if (lager<1)start=0;
+	if (lager<30)max=lager;
+	for (int i=start;i<=lager;i++){
+		if (i==1) html += "<option value="+i+" selected>"+i+"</option>";
+		else html += "<option value="+i+">"+i+"</option>";	
 	}
 	html += "</select>";
 	out.print(html);

@@ -13,7 +13,7 @@ public class AccountBean {
 	String email;
 	String username;
 	String password;
-	Boolean admin;
+	Boolean admin=false;
 	int lastArtikelInt=0;
 	String adresse;
 	String stadt;
@@ -23,34 +23,43 @@ public class AccountBean {
 
 	Connection dbConn;
 
-	public void insertAdmin() throws SQLException {
-		if (checkIfExist())
+	public boolean insertAdmin() throws SQLException {
+		boolean ergebnis=checkIfExist(); // true = existiert bereits
+		if (ergebnis)
 			System.out.println("nope");
 		else {
-			String sql = "INSERT INTO account (email,username,password,admin) VALUES(?,?,?,true)";
-			PreparedStatement prep = this.dbConn.prepareStatement(sql);
-			prep.setString(1, this.email);
-			prep.setString(2, this.username);
-			prep.setString(3, this.password);
-			prep.executeUpdate();
-			System.out.println("Admin hinzugefügt");
-		}
-	}
-
-	public boolean insertKunde() throws SQLException {
-		boolean ergebmis=checkIfExist(); // true = existiert bereits
-		if (ergebmis)
-			System.out.println("nope");
-		else {
-			String sql = "INSERT INTO account (email,username,password) VALUES(?,?,?)";
+			String sql = "INSERT INTO account (email,username,password,admin,adresse,stadt,plz) VALUES(?,?,?,?,?,?,?)";
 			PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 			prep.setString(1, this.email);
 			prep.setString(2, this.username);
 			prep.setString(3, this.password);
+			prep.setBoolean(4, true);
+			prep.setString(5, this.adresse);
+			prep.setString(6, this.stadt);
+			prep.setInt(7, this.plz);
+			prep.executeUpdate();
+			System.out.println("Admin hinzugefügt");
+		}
+		return ergebnis;
+	}
+
+	public boolean insertKunde() throws SQLException {
+		boolean ergebnis=checkIfExist(); // true = existiert bereits
+		if (ergebnis)
+			System.out.println("nope");
+		else {
+			String sql = "INSERT INTO account (email,username,password,adresse,stadt,plz) VALUES(?,?,?,?,?,?)";
+			PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
+			prep.setString(1, this.email);
+			prep.setString(2, this.username);
+			prep.setString(3, this.password);
+			prep.setString(4, this.adresse);
+			prep.setString(5, this.stadt);
+			prep.setInt(6, this.plz);
 			prep.executeUpdate();
 			System.out.println("Gast hinzugefügt");
 		}
-		return ergebmis;
+		return ergebnis;
 	}
 	
 	public void deletAcc() throws NoConnectionException, SQLException {
@@ -126,7 +135,7 @@ public class AccountBean {
 		setAccNr(0);
 		setEmail(null);
 		setPassword(null);
-		setAdmin(null);
+		setAdmin(false);
 		setLogin(false);
 		setLastArtikelInt(0);
 	}

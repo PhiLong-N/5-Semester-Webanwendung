@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Meine Bestellungen</title>
+<link rel="stylesheet" type="text/css" href="../css/GUI.css" />
 </head>
 <body>
 <jsp:useBean id="abb" class="beans.AllBestellungBean"
@@ -13,10 +14,8 @@
 <jsp:useBean id="acb" class="beans.AccountBean"
 		scope="session" />
 		
-<a href="StartView.jsp"><img src="../img/LogoCut.png" width="655"/></a>		
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>		
 
-<a href="StartView.jsp">Zurück zur Startseite</a>
-<br>(Artikelbewertung)
 
 
 <h1>Meine Bestellungen</h1>

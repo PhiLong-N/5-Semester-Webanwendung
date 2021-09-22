@@ -103,6 +103,23 @@ public class WarenkorbKundeBean {
 		return endpreis;
 	}
 	
+	public boolean checkMenge() throws NoConnectionException, SQLException {
+		String sql = "select artikelnr, menge from warenkorbkunde where kundennr="+kundenNr;
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		while(dbRes.next()) {
+			 int artikelnr=dbRes.getInt("artikelnr");
+			 int menge = dbRes.getInt("menge");
+			 
+			 String sqlLager = "select lager from artikel where artikelnr="+artikelnr;
+			 ResultSet dbResLager = new PostgreSQLAccess().getConnection().prepareStatement(sqlLager).executeQuery();
+			 dbResLager.next();
+			 int lager = dbResLager.getInt("lager");
+			 if (menge >lager)return false;
+		}
+		
+		return true;
+	}
+	
 	
 	
 }

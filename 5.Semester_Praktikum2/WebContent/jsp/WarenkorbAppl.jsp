@@ -38,7 +38,12 @@ if(!btnArtikelAndernString.equals("")){
 	wkb.deletArtikel(btnArtikelLoschen);
 	response.sendRedirect("WarenkorbView.jsp");
 }else if (btnKasse.equals("kasse")){
-	response.sendRedirect("KasseView.jsp");
+	// check lager
+	if (wkb.checkMenge()==false){
+		System.out.println("Artikel nicht auf Lager");
+		response.sendRedirect("WarenkorbView.jsp");
+	}
+	else response.sendRedirect("KasseView.jsp");
 }else response.sendRedirect("StartView.jsp");
 
 %>

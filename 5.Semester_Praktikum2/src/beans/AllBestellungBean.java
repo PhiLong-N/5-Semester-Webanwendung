@@ -122,11 +122,11 @@ public class AllBestellungBean {
 			dbRes2.next();
 			String artikel=dbRes2.getString("artikel");
 			double preis = dbRes2.getDouble("preis");
-			html +="<tr> <td rowspan='2'> <a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'> <img src='../img/caipi.jpg' height='100px' /></a>"
-					+ "<a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'>"+artikel +"</a> "
-					+ "</td> <td>Menge: "+menge +"</td> "
+			html +="<tr> <td rowspan='2'> <a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'> <img src='../img/"+artikel.toLowerCase().trim()+".jpg' height='150px' width='150px' /></a></td>"
+					+ "<td width='200px'><a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'>"+artikel +"</a> "
+					+ "</td> <td width='100px'>Menge: "+menge +"</td> "
 					+ "<td>Einzelpreis: "+preis+"</td> </tr>" ;
-			html += "<tr> <td>";
+			html += "<tr> <td  colspan='3'>";
 			html += "<form action=\"./MeineBestellungAppl.jsp\" method=\"get\">\r\n"
 					+ "	<select name='bewertung'>\r\n"
 					+ "		<option value=1 >1 Stern</option>\r\n"
@@ -134,22 +134,10 @@ public class AllBestellungBean {
 					+ "		<option value=3 >3 Stern</option>\r\n"
 					+ "		<option value=4 >4 Stern</option>\r\n"
 					+ "		<option value=5 >5 Stern</option> </select>";
-			html += "</td> "
-					+ "<td> <button type='submit' name='btnBewerten' value="+artikelnr+" />Bewertung Abgeben </button> </form>  </td> </tr>";
+			html += "<button type='submit' name='btnBewerten' value="+artikelnr+" />Bewertung Abgeben </button> </form>  </td> </tr>";
 		}
 		return html;
 	}
-	
-	/*
-	<form action="./MeineBestellungAppl.jsp" method="get">
-	<select name='bewertung'>
-		<option value=1 >1 Stern</option>
-		<option value=2 >2 Stern</option>
-		<option value=3 >3 Stern</option>
-		<option value=4 >4 Stern</option>
-		<option value=5 >5 Stern</option>
-	</select>
-</form>*/
 	
 	
 	public String getAllBestellung(int kundennr) throws NoConnectionException, SQLException {
@@ -163,12 +151,12 @@ public class AllBestellungBean {
 			ResultSet dbRes2 = new PostgreSQLAccess().getConnection().prepareStatement(sqlBestellnr).executeQuery();
 			while (dbRes2.next()) {
 				if(bestellnrAlt!=bestellnr) {
-					html+="<table><tr><td>"+getTime(bestellnr)+"</td>";
-					html+="<td>	Gesamtbetrag: "+getSumme(kundennr, bestellnr)+" Euro </td>";
-					html+=" <td>Bestellnummer: "+bestellnr+" </td></tr>";
-					html+="<tr><td>"+getVersandadresse(bestellnr)+"</td></tr>";
+					html+="<table class='outerborder'><tr><td width='200px'><b>"+getTime(bestellnr)+"</b></td>";
+					html+="<td colspan='2'><b>	Gesamtbetrag: "+getSumme(kundennr, bestellnr)+" Euro </b></td>";
+					html+=" <td><b>Bestellnummer: "+bestellnr+" </td></b></tr>";
+					html+="<tr><td><b>"+getVersandadresse(bestellnr)+"</b><br></td></tr>";
 					html+= getBestellung(bestellnr);
-					html+="</table><br><br><br>";
+					html+="</table><br><br>";
 				}
 				bestellnrAlt=bestellnr;
 			}	
