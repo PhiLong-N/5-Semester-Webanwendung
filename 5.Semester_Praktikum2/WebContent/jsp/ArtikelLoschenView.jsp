@@ -12,6 +12,7 @@
 
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 
+<br>
 	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
 	<br><br>
 	
@@ -31,6 +32,8 @@
 	
 		</form>
 	
+	<br>
+	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
 
 
 

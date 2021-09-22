@@ -11,7 +11,7 @@
 
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 
-<h4>Erstellen Sie bitte ihren </h4>Account!
+<h4>Erstellen Sie bitte ihren Account!</h4>
 
 <form action="./RegistrierenAppl.jsp" method="get">
 
@@ -56,7 +56,7 @@
 
 </form>
 <br><br>
-<a href="./StartView.jsp">Zurück zur Startseite</a>
+	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
 
 </body>
 </html>

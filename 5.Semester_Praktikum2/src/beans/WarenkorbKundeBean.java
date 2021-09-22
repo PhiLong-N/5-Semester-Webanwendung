@@ -44,9 +44,11 @@ public class WarenkorbKundeBean {
 		}
 	}
 	
-	public ArrayList<ListArtikel> getWarenkorbKunde(int kundenNr) throws NoConnectionException, SQLException {
+	
+	public String getWarenKorbKunde(int kundenNr) throws SQLException {
+		double gesamtbetrag=0;
 		this.kundenNr=kundenNr;
-		ArrayList<ListArtikel> coll = new ArrayList<ListArtikel>();
+		String html="<table>";
 		String sql ="select position, artikelnr,menge, einzelpreis, gesamtpreis from warenkorbkunde where kundennr= "+kundenNr+" order by position asc";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		while(dbRes.next()) {
@@ -55,11 +57,58 @@ public class WarenkorbKundeBean {
 			int menge = dbRes.getInt("menge");
 			double einzelpreis = dbRes.getDouble("einzelpreis");
 			double gesamtpreis = dbRes.getDouble("gesamtpreis");
-			ListArtikel a = new ListArtikel(position, artikelNr, menge, einzelpreis,gesamtpreis);
-			coll.add(a);
+			
+			String sqlArtikel = "select artikel,lager from artikel where artikelnr="+artikelNr;
+			ResultSet dbResArtikel = new PostgreSQLAccess().getConnection().prepareStatement(sqlArtikel).executeQuery();
+			dbResArtikel.next();
+			String artikel = dbResArtikel.getString("artikel");
+			int lager = dbResArtikel.getInt("lager");
+			
+			html+="<form action='./WarenkorbAppl.jsp' method='get'>";
+			html+="<tr><td rowspan='4'><a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelNr+"'> <img src='../img/"+artikel.toLowerCase().trim()+".jpg' height='150px' width='150px' /></a></td>";
+			html+="<tr><td>"+artikel+"</td>";
+			html+="<td>Menge: ";
+			html+="<select name='anzahlArtikelAndern'>";
+			if (menge>30){
+				for (int i=1;i<=menge+1;i++){
+					if (i==menge) html += "<option value="+i+" selected>"+i+"</option>";
+					else html += "<option value="+i+">"+i+"</option>";	
+				}
+			}else{
+				int max = 30;
+				if (lager<30)max=lager;
+				if (menge>max)max=menge;
+				for (int i=1;i<=max;i++){
+					if (i==menge) html += "<option value="+i+" selected>"+i+"</option>";
+					else html += "<option value="+i+">"+i+"</option>";	
+				}
+			}
+			html+= "</select>";
+			html+="<button type='submit' name='btnArtikelAndern' value="+artikelNr+">Menge ändern</button> </td>"; 
+			html+="<td><button type='submit' name='btnArtikelLoschen' value="+artikelNr+">Artikel Löschen</button> </td>";
+			if(menge>lager)html+="<td>Reduzieren Sie bitte ihre ausgewählte Menge.</td>";
+			else html+="<td></td>";
+			html+="</tr>";
+			html+="<tr> <td></td> <td>Einzelpreis: "+einzelpreis+" Euro</td></tr>";
+			html+="<tr> <td></td> <td>Gesamtpreis: "+gesamtpreis+" Euro </td></tr>";
+			html+="</form>";
+			gesamtbetrag+=gesamtpreis;
 		}
-		return coll;
+		html+="</table>";
+		
+		String komma="update komma set decimal ="+gesamtbetrag+" where position =1";
+		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(komma);
+		prep.executeUpdate();
+		komma="select decimal from komma where position=1";
+		dbRes = new PostgreSQLAccess().getConnection().prepareStatement(komma).executeQuery();
+		dbRes.next();
+		gesamtbetrag = dbRes.getDouble("decimal");
+		
+		html+="<br><br><br><h4>Gesamtbetrag: "+gesamtbetrag+" Euro</h4>";
+		return html;
 	}
+	
+	
 	
 	public void changeMenge(int menge, int artikelNr) throws NoConnectionException, SQLException {
 		String sql = "update warenkorbkunde set menge="+menge+"where kundennr="+this.kundenNr+"and artikelnr="+artikelNr;

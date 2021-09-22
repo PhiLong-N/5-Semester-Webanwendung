@@ -10,6 +10,8 @@
 
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>	
 
+<br>
+	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
 <br><br>
 
 <form action="./ArtikelHinzufugenAppl.jsp" name="get">
@@ -48,7 +50,6 @@
 
 
 <br><br>
-<a href="StartView.jsp">Zurück zur Startseite</a>
-
+	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
 </body>
 </html>
