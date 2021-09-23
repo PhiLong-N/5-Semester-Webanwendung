@@ -57,8 +57,6 @@ else if(btnRegistrieren.equals("registrieren")){
 	}
 }
 else response.sendRedirect("StartView.jsp");
-
-
 %>
 
 </body>

@@ -9,33 +9,25 @@
 <body>
 
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>	
-
-<br>
-	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
-<br><br>
+<br><a href="EinstellungView.jsp">Zurück zu den Einstellungen</a> <br><br>
 
 <form action="./ArtikelHinzufugenAppl.jsp" name="get">
-	
 	Bitte achten Sie auf die Groß- und Kleinschreibung!
 	<table>
 		<tr>
 			<td>Artikelname: </td>
 			<td><input type="text" name="name" value=""/></td>
-		</tr>
-		<tr>
+		</tr><tr>
 			<td>Kategorie: </td>
 			<td><input type="text" name="kategorie" value="" /></td>
-		</tr>
-		<tr>
+		</tr><tr>
 			<td>Preis: </td>
 			<td><input type="text" name="preis" value="" /></td>
 			<td>(Bitte nur Zahlen und Punkt verwernden)</td>
-		</tr>
-		<tr>
+		</tr><tr>
 			<td>Beschreibung: </td>
 			<td><input type="text" name="beschreibung" value="" /></td>
-		</tr>
-		<tr>
+		</tr><tr>
 			<td>Lageranzahl: </td>
 			<td><input type="text" name="lager" value="" /></td>
 			<td>Bitte nur ganze Zahlen eingeben</td>
@@ -43,13 +35,10 @@
 	</table>
 	
 	<br>
-	
 	<button type="submit" name="btnArtikelHinzufugen" value="artikelHinzufugen">Artikel Hinzufügen</button></td>
-
 </form>
 
+<br><br><a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
 
-<br><br>
-	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
 </body>
 </html>

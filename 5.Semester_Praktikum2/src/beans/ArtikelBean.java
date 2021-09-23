@@ -185,6 +185,21 @@ public class ArtikelBean {
 		prep.executeUpdate();
 	}
 	
+	public String bewertung() throws NoConnectionException, SQLException {
+		String html="";
+		String sql = "select bewertungsum, bewertunganzahl from artikel where artikelnr="+artikelnr;
+		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
+		dbRes.next();
+		double bewertungsum = dbRes.getInt("bewertungsum");
+		double bewertunganzahl = dbRes.getInt("bewertunganzahl");
+		if (bewertunganzahl==1)return "NEU!";
+		
+		double bewertung = bewertungsum/(bewertunganzahl-1);
+		DecimalFormat f = new DecimalFormat("#0.0");
+		html= "<br>Bewertung:"+f.format(bewertung); 
+		return html;
+	}
+	
 	public void setLagerArtikel(String eingabe) throws NoConnectionException, SQLException { //Admin: Lageranzahl ändern: alle Artikel %eingabe% werden aufgelistet
 		String sql = setAllArtikel(eingabe);
 		String html="";

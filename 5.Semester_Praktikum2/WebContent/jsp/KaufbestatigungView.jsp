@@ -13,11 +13,9 @@
 <h1>Vielen Dank für ihre Bestellung!</h1>
 <p>Ihre Bestellung ist eingegangen und wird zur Zeit bearbeitet. 
 <br>An Ihre E-Mail-Adresse werden die Details Ihrer Bestellung gesendet.
- </p>
+</p>
 
-<br>
-	<br>
-	<a href="StartView.jsp">Zurück zur Startseite</a>
+<br><br><a href="StartView.jsp">Zurück zur Startseite</a>
 
 </body>
 </html>

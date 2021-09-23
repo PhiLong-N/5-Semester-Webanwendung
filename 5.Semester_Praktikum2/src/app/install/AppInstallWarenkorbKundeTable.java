@@ -17,9 +17,7 @@ public class AppInstallWarenkorbKundeTable {
 	
 	public void doSomething() throws SQLException, ClassNotFoundException{
 		dropWarenkorbKundeTable();
-		createWarenkorbKundeTable();	
-		//insertTest();
-		//selectTest();
+		createWarenkorbKundeTable();
 	}
 	
 	public void createWarenkorbKundeTable() throws SQLException {
@@ -43,24 +41,5 @@ public class AppInstallWarenkorbKundeTable {
 		dbConn.prepareStatement(sql).executeUpdate();
 		System.out.println("Table warenkorbKunde existiert (jetzt) nicht (mehr)");
 	}
-	
-	public void insertTest() throws SQLException {
-		
-		String sql = "INSERT INTO warenkorbKunde (kundenNr) VALUES (9)";
-		PreparedStatement prep = this.dbConn.prepareStatement(sql);
-		prep.executeUpdate();
-		System.out.println("Baum erfolgreich hinzugefügt");
-		
-	}
-	
-	public void selectTest() throws NoConnectionException, SQLException {
-		String sql="Select menge from warenkorbkunde where kundennr=1 and artikelnr=5";
-		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
-		if(dbRes.next()) {
-			System.out.println(dbRes.getInt("menge"));
-		}else System.out.println("appinstallwarenkorbkunde");
-
-	}
-	
 
 }

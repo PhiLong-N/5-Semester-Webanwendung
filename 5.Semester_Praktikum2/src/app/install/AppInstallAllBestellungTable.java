@@ -20,7 +20,6 @@ Connection dbConn;
 	public void doSomething() throws SQLException, ClassNotFoundException{
 		dropAllBestellungTable();
 		createAllBestellungTable();	
-		//test();
 	}
 	
 	public void dropAllBestellungTable() throws SQLException {
@@ -47,14 +46,5 @@ Connection dbConn;
 		prepStat.executeUpdate();
 		System.out.println("Table allBestellung erfolgreich angelegt");
 	}
-	
-	public void test() {
-		Timestamp timestamp = new Timestamp(System.currentTimeMillis());
-		System.out.println(timestamp);
-
-
-	}
-	
-	
 
 }

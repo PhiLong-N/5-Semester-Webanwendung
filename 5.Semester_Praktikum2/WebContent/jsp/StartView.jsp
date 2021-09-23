@@ -12,45 +12,33 @@
 <jsp:useBean id="gb" class="beans.GUIBean" scope="session" />
 <jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
 
-<%gb.setLoschenMsg("");
+<%	//resetten von GUI-Msg
+gb.setLoschenMsg("");
 acb.setEmailMsg("");
 acb.setUsernameMsg("");
 acb.setPasswortMsg("");
-%>	
-		
-		
+%>			
 	
-<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>		
-
-<br><br>
+<a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a><br><br>
 	
-	<%
-	if (acb.getLogin()) {
-		out.print(gb.trueLogin(acb.getUsername()));
-	}
+<%
+	if (acb.getLogin()) out.print(gb.trueLogin(acb.getUsername()));
+	else out.print(gb.falseLogin());
+%>
 
-	else {
-		out.print(gb.falseLogin());
-	}
-	%>
-
-	<form action="./StartSearchAppl.jsp" method="get">
-		<table>
-			<tr>
-				<td>
-					<%
-					out.print(ab.searchBarKategorie());
-					%>
-				</td>
-				<td><input type="text" name="searchBar" value="" size="70" /></td>
-				<td><button type="submit" name="btnSearch" value="search" />Suchen</button></td>
-			</tr>
-		</table>
-	</form>
-
+<form action="./StartSearchAppl.jsp" method="get">
 	<table>
 		<tr>
-			<td>
+			<td><%out.print(ab.searchBarKategorie());%></td>
+			<td><input type="text" name="searchBar" value="" size="70" /></td>
+			<td><button type="submit" name="btnSearch" value="search" />Suchen</button></td>
+		</tr>
+	</table>
+</form>
+
+<table>
+	<tr>
+		<td>
 			<form action='./ArtikelSeiteView.jsp' method='get'>
 				<%
 				if (acb.getLastArtikelInt() == 0) {
@@ -65,20 +53,15 @@ acb.setPasswortMsg("");
 				} else
 					out.print(gb.lastArtikel(acb.getLastArtikelInt() ));
 				%>
-				</form>
-			</td>
-		</tr>
-	</table>
-	
-		<br><br>
-		
-	<form action="./ArtikelSeiteView.jsp" method="get">
-	
-	<%out.print(gb.trend()); %>
-	
-	</form>
-	
-	
+			</form>
+		</td>
+	</tr>
+</table>	
+<br><br>
 
+<form action="./ArtikelSeiteView.jsp" method="get">
+	<%out.print(gb.trend()); %>
+</form>
+	
 </body>
 </html>

@@ -8,26 +8,21 @@
 </head>
 <body>
 
-<jsp:useBean id="ab" class="beans.ArtikelBean"
-		scope="session" />
+<jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
 
 <%
 String kategorieDropdown = request.getParameter("kategorieDropdown");
 String searchBar = request.getParameter("searchBar");
 String btnSearch = request.getParameter("btnSearch");
-if (btnSearch==null)btnSearch="";
-
 String preisklasse = request.getParameter("preisklasse");
 String btnPreisklasse= request.getParameter("btnPreisklasse");
+
+if (btnSearch==null)btnSearch="";
 if (btnPreisklasse==null)btnPreisklasse="";
 
 if (btnSearch.equals("search")){
-	if (kategorieDropdown.equals("Alle")){
-		ab.searchAll(searchBar);
-	}
-	else{
-		ab.searchKategorie(searchBar, kategorieDropdown);
-	}
+	if (kategorieDropdown.equals("Alle")) ab.searchAll(searchBar);
+	else ab.searchKategorie(searchBar, kategorieDropdown);
 	response.sendRedirect("SearchView.jsp");
 }
 else if(btnPreisklasse.equals("ubernehmen")){
@@ -35,8 +30,6 @@ else if(btnPreisklasse.equals("ubernehmen")){
 	response.sendRedirect("SearchView.jsp");
 }
 else response.sendRedirect("StartView.jsp");
-
-
 %>
 
 </body>

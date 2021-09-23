@@ -16,6 +16,7 @@ String btnRegistrieren = request.getParameter("btnRegistrieren");
 String btnLogout =request.getParameter("btnLogout");
 String btnWarenkorb = request.getParameter("btnWarenkorb");
 String btnEinstellung = request.getParameter("btnEinstellung");
+
 if (btnAnmelden==null)btnAnmelden="";
 if (btnRegistrieren==null)btnRegistrieren="";
 if (btnLogout==null)btnLogout="";

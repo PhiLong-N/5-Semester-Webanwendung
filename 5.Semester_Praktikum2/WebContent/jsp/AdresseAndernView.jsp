@@ -11,9 +11,7 @@
 
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 
-
 <form action="./AdresseAndernAppl.jsp" method="get">
-
 <table>
 	<tr>
 		<td>Adresse: </td>
@@ -30,14 +28,10 @@
 </table>
 
 	<button type="submit" name="btnAdresseAndern" value="adresseAndern"> Adresse ändern</button>
-		
 </form>
 
 <br><br>
 <a href="StartView.jsp">Zurück zur Startseite</a>
-
-
-
 
 </body>
 </html>

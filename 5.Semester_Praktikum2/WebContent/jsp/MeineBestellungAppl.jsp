@@ -10,18 +10,17 @@
 
 <jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
 
-
 <%
 int btnBewerten=0;
 int bewertung =0;
 
 String btnBewertenString = request.getParameter("btnBewerten");
+String bewertungString = request.getParameter("bewertung");
+
 if (btnBewertenString==null)btnBewertenString="";
 else {
 	btnBewerten = Integer.parseInt(btnBewertenString);
 }
-String bewertungString = request.getParameter("bewertung");
-
 
 if (btnBewerten!=0){
 	bewertung = Integer.parseInt(bewertungString);
@@ -29,7 +28,6 @@ if (btnBewerten!=0){
 	response.sendRedirect("MeineBestellungenView.jsp");
 }
 else response.sendRedirect("StartView.jsp");
-
 %>
 
 </body>

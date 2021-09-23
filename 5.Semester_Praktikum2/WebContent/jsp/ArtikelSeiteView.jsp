@@ -43,25 +43,22 @@ out.print("<h1>"+ ab.getArtikel()+"</h1>");
 <form action="./ArtikelSeiteAppl.jsp" method="get">
 <%
 String html="<select name='anzahlArtikel'>";
-	int lager = ab.getLager();
-	int max=30;
-	int start=1;
-	if (lager<1)start=0;
-	if (lager<30)max=lager;
-	for (int i=start;i<=max;i++){
-		if (i==1) html += "<option value="+i+" selected>"+i+"</option>";
-		else html += "<option value="+i+">"+i+"</option>";	
-	}
-	html += "</select>";
-	out.print(html);
+int lager = ab.getLager();
+int max=30;
+int start=1;
+if (lager<1)start=0;
+if (lager<30)max=lager;
+for (int i=start;i<=max;i++){
+	if (i==1) html += "<option value="+i+" selected>"+i+"</option>";
+	else html += "<option value="+i+">"+i+"</option>";	
+}
+html += "</select>";
+out.print(html);
 %>
-	<button type="submit" name="btnArtikel" value=<%out.print(artikelNr); %> > In den Warenkorb </button>
+<button type="submit" name="btnArtikel" value=<%out.print(artikelNr); %> > In den Warenkorb </button>
 </form>
 
-
-<br><br>
-<a href="StartView.jsp">Zurück zur Startseite</a>
-
+<br><br><a href="StartView.jsp">Zurück zur Startseite</a>
 
 </body>
 </html>

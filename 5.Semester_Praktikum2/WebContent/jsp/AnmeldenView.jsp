@@ -13,28 +13,25 @@
 
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>	
 
-	<h4>Bitte melden Sie sich an</h4>
-	<form action="./AnmeldenAppl.jsp" method="get">
-		<table>
-			<tr>
-				<td>Username:</td>
-				<td><input type="text" name="username"
-					value="<%if (acb.getUsername()==null) out.print("");
-							else out.print(acb.getUsername());%>" />
-				</td>
-			</tr>
-			<tr>
-				<td>Passwort:</td>
-				<td><input type="password" name="password" value="" /></td>
-			</tr>
-			<tr>
-				<td></td>
-				<td><button type="submit" name="btnLogin" value="anmelden" />Anmelden</button></td>
-			</tr>
-		</table>
-	</form>
-	<br>
-	<a href="http://localhost:8080/5.Semester_Praktikum/jsp/RegistrierenView.jsp">Noch kein Account? Registrieren Sie sich hier</a> <br><br>
-	<a href="./StartView.jsp">Zurück zur Startseite</a>
+<h4>Bitte melden Sie sich an</h4>
+<form action="./AnmeldenAppl.jsp" method="get">
+	<table>
+		<tr>
+			<td>Username:</td>
+			<td><input type="text" name="username" value="<%if (acb.getUsername()==null) out.print("");
+															else out.print(acb.getUsername());%>" /></td>
+		</tr><tr>
+			<td>Passwort:</td>
+			<td><input type="password" name="password" value="" /></td>
+		</tr><tr>
+			<td></td>
+			<td><button type="submit" name="btnLogin" value="anmelden" />Anmelden</button></td>
+		</tr>
+	</table>
+</form>
+<br>
+<a href="http://localhost:8080/5.Semester_Praktikum/jsp/RegistrierenView.jsp">Noch kein Account? Registrieren Sie sich hier</a> <br><br>
+<a href="./StartView.jsp">Zurück zur Startseite</a>
+
 </body>
 </html>

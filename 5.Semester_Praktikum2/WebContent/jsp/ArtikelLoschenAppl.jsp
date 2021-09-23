@@ -11,7 +11,6 @@
 <jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
 <jsp:useBean id="acb" class="beans.AccountBean" scope="session" />
 
-
 <%
 String btnArtikelLoschen = request.getParameter("btnArtikelLoschen");
 String btnSearch = request.getParameter("btnSearch");
@@ -19,7 +18,6 @@ String searchBar = request.getParameter("searchBar");
 
 if (btnSearch==null)btnSearch="";
 if (btnArtikelLoschen==null)btnArtikelLoschen="";
-
 
 if(btnSearch.equals("search")){
 	ab.setDeleteArtikel(searchBar);

@@ -94,7 +94,6 @@ public class AppInstallArtikelTable {
 		System.out.println("Turnschuh erfolgreich hinzugefügt");
 	}
 	
-	
 	public void insert1() throws SQLException {
 
 		String sql = "INSERT INTO artikel (artikel, artikellower, kategorie, kategorielower, preis, clicks , beschreibung, lager, bewertungsum, bewertunganzahl) VALUES ('Digitalkamera','digitalkamera','Elektronik','elektronik', 189.99,15,'Digitalkamera zum Fotografieren und festhalten von Erinnerungen. Überall mitnehmbar.\r\n"
@@ -172,7 +171,6 @@ public class AppInstallArtikelTable {
 		prep = this.dbConn.prepareStatement(sql);
 		prep.executeUpdate();
 		System.out.println("Artikel hinzugefügt.");
-		
 	}
 	
 	public void insert2() {
@@ -184,5 +182,4 @@ public class AppInstallArtikelTable {
 		*/
 	}
 	
-
 }

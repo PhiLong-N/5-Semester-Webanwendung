@@ -10,22 +10,17 @@
 <script type="text/javascript" src="../js/MeineBestellungen.js"></script>
 </head>
 <body>
-<jsp:useBean id="abb" class="beans.AllBestellungBean"
-		scope="session" />
-<jsp:useBean id="acb" class="beans.AccountBean"
-		scope="session" />
+
+<jsp:useBean id="abb" class="beans.AllBestellungBean" scope="session" />
+<jsp:useBean id="acb" class="beans.AccountBean" scope="session" />
 		
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>		
-
-
-
 <h1>Meine Bestellungen</h1>
 
-	<% int kundennr= acb.getAccNr();
+<% int kundennr= acb.getAccNr();
 	out.print(abb.getAllBestellung(kundennr));%>
-	
-	
-	<br><a href="StartView.jsp">Zurück zur Startseite</a>
+
+<br><a href="StartView.jsp">Zurück zur Startseite</a>
 
 </body>
 </html>

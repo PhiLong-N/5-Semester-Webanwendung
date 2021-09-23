@@ -12,12 +12,10 @@
 <jsp:useBean id="gb" class="beans.GUIBean" scope="session" />
 
 <%
-
 String btnLoschen = request.getParameter("btnLoschen");
 String bar = request.getParameter("bar");
 
 if(btnLoschen==null)btnLoschen="";
-
 
 if (btnLoschen.equals("loschen")){
 	if(bar.equals("BESTAETIGEN")){

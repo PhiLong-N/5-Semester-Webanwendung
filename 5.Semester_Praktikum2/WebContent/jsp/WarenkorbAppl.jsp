@@ -10,7 +10,6 @@
 
 <jsp:useBean id="wkb" class="beans.WarenkorbKundeBean" scope="session" />
 
-
 <%
 String anzahlArtikelAndernString = request.getParameter("anzahlArtikelAndern");
 int anzahlArtikelAndern = 0;
@@ -30,7 +29,6 @@ if (!btnArtikelLoschenString.equals("")){
 String btnKasse = request.getParameter("btnKasse");
 if (btnKasse==null)btnKasse="";
 
-
 if(!btnArtikelAndernString.equals("")){
 	wkb.changeMenge(anzahlArtikelAndern, btnArtikelAndern);
 	response.sendRedirect("WarenkorbView.jsp");
@@ -38,17 +36,13 @@ if(!btnArtikelAndernString.equals("")){
 	wkb.deletArtikel(btnArtikelLoschen);
 	response.sendRedirect("WarenkorbView.jsp");
 }else if (btnKasse.equals("kasse")){
-	// check lager
 	if (wkb.checkMenge()==false){
 		System.out.println("Artikel nicht auf Lager");
 		response.sendRedirect("WarenkorbView.jsp");
 	}
 	else response.sendRedirect("KasseView.jsp");
 }else response.sendRedirect("StartView.jsp");
-
 %>
-
-
 
 </body>
 </html>

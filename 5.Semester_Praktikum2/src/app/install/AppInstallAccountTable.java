@@ -20,14 +20,11 @@ public class AppInstallAccountTable {
 	}
 	
 	public void doSomething() throws SQLException, ClassNotFoundException{
-		
 		dropAccountTable();
 		createAccountTable();
 		insertAdmin();
 		insertKunde();
-		
 	}
-	
 	
 	public void createAccountTable() throws SQLException {
 		String sql = "CREATE TABLE account ("
@@ -67,7 +64,5 @@ public class AppInstallAccountTable {
 		prep.executeUpdate();
 		System.out.println("Gast hinzugefügt");
 	}
-	
-
 	
 }

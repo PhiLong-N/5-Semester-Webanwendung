@@ -22,7 +22,6 @@ String btnLagerAndern = request.getParameter("btnLagerAndern");
 String btnArtikelHinzufugen = request.getParameter("btnArtikelHinzufugen");
 String btnAdminHinzufugen = request.getParameter("btnAdminHinzufugen");
 
-
 if(btnAdresse==null)btnAdresse="";
 if(btnLoschen==null)btnLoschen="";
 if(btnMeineBestellungen==null)btnMeineBestellungen="";
@@ -30,7 +29,6 @@ if(btnArtikelLoschen==null)btnArtikelLoschen="";
 if(btnLagerAndern==null)btnLagerAndern="";
 if(btnArtikelHinzufugen==null)btnArtikelHinzufugen="";
 if(btnAdminHinzufugen==null)btnAdminHinzufugen="";
-
 
 if (btnAdresse.equals("adresse")){
 	response.sendRedirect("AdresseAndernView.jsp");
@@ -57,7 +55,6 @@ else if(btnAdminHinzufugen.equals("adminHinzufugen")){
 	response.sendRedirect("RegistrierenView.jsp");
 }
 else response.sendRedirect("StartView.jsp");
-
 %>
 
 </body>

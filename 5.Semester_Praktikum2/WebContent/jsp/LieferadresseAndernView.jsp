@@ -11,27 +11,23 @@
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 
 <form action="./LieferadresseAndernAppl.jsp" method="get">
-
-<table>
-	<tr>
-		<td>Name: </td>
-		<td><input type="text" name="name" value="" /></td>
-	</tr>
-	<tr>
-		<td>Adresse: </td>
-		<td><input type="text" name="adresse" value="" /></td>
-	</tr>
-	<tr>
-		<td>Stadt: </td>
-		<td><input type="text" name="stadt" value="" /></td>
-	</tr>
-	<tr>
-		<td>Plz: </td>
-		<td><input type="text" name="plz" value="" /></td>
-	</tr>
+	<table>
+		<tr>
+			<td>Name: </td>
+			<td><input type="text" name="name" value="" /></td>
+		</tr><tr>
+			<td>Adresse: </td>
+			<td><input type="text" name="adresse" value="" /></td>
+		</tr><tr>
+			<td>Stadt: </td>
+			<td><input type="text" name="stadt" value="" /></td>
+		</tr><tr>
+			<td>Plz: </td>
+			<td><input type="text" name="plz" value="" /></td>
+		</tr>
 	</table>
-	
 	<button type="submit" name="btnAdresseAndern" value="adresseAndern"> Lieferadresse ändern</button>
+</form>
 
 </body>
 </html>
