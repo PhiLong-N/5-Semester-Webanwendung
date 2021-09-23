@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Meine Bestellungen</title>
 <link rel="stylesheet" type="text/css" href="../css/GUI.css" />
+<script type="text/javascript" src="../js/MeineBestellungen.js"></script>
 </head>
 <body>
 <jsp:useBean id="abb" class="beans.AllBestellungBean"

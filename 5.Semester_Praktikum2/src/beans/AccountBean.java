@@ -138,6 +138,9 @@ public class AccountBean {
 		setAdmin(false);
 		setLogin(false);
 		setLastArtikelInt(0);
+		setAdresse(null);
+		setStadt(null);
+		setPlz(0);
 	}
 	
 

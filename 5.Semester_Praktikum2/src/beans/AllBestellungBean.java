@@ -94,6 +94,15 @@ public class AllBestellungBean {
 			double preis = dbRes2.getDouble("preis");
 			summe += menge*preis;
 		}
+		
+		String komma="update komma set decimal ="+summe+" where position =1";
+		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(komma);
+		prep.executeUpdate();
+		komma="select decimal from komma where position=1";
+		dbRes = new PostgreSQLAccess().getConnection().prepareStatement(komma).executeQuery();
+		dbRes.next();
+		summe = dbRes.getDouble("decimal");
+		
 		return summe;
 	}
 	
@@ -134,7 +143,7 @@ public class AllBestellungBean {
 					+ "		<option value=3 >3 Stern</option>\r\n"
 					+ "		<option value=4 >4 Stern</option>\r\n"
 					+ "		<option value=5 >5 Stern</option> </select>";
-			html += "<button type='submit' name='btnBewerten' value="+artikelnr+" />Bewertung Abgeben </button> </form>  </td> </tr>";
+			html += "<button type='submit' name='btnBewerten' value="+artikelnr+" onclick='bewertungsBestatigung()' />Bewertung Abgeben </button> </form>  </td> </tr>";
 		}
 		return html;
 	}

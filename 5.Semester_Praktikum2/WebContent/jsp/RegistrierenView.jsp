@@ -56,7 +56,7 @@
 
 </form>
 <br><br>
-	<a href="EinstellungView.jsp">Zurück zu den Einstellungen</a>
+	<a href="StartView.jsp">Zurück zur Startseite</a>
 
 </body>
 </html>
