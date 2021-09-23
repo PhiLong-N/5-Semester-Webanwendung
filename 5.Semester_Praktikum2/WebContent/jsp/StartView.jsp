@@ -40,7 +40,7 @@
 					out.print(ab.searchBarKategorie());
 					%>
 				</td>
-				<td><input type="text" name="searchBar" value="" size="70" /></td>
+				<td><input type="text" name="searchBar" value="" size="64" /></td>
 				<td><button type="submit" name="btnSearch" value="search" />Suchen</button></td>
 			</tr>
 		</table>

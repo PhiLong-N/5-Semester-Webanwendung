@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Einstellung</title>
+<script type="text/javascript" src="../js/MeineBestellungen.js"></script>
 </head>
 <body>
 
@@ -12,13 +13,23 @@
 
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 <br><br>
-<form action="./EinstellungAppl.jsp" method="get">
+<form id="test" action="./EinstellungAppl.jsp" method="get">
 
 <table>
 	
-	<tr><td><button type="submit" name="btnMeineBestellungen" value="bestellung">Meine Bestellungen</button></td></tr>
-	<tr><td><button type="submit" name="btnAdresse" value="adresse">Adresse Ändern</button></td></tr>
+	<tr><td><button type="submit" name="btnMeineBestellungen" value="bestellung" >Meine Bestellungen</button></td></tr>
+	<tr><td><button type="submit" name="btnAdresse" value="adresse" onclick="geek()" >Adresse Ändern</button></td></tr>
 	<tr><td><button type="submit" name="btnLoschen" value="loschen">Account Löschen</button></td></tr>
+	
+	<tr><td>
+	 <button onclick="geek()">Click me!</button>
+	 <p id="g"></p>
+	</td>	
+	</tr>
+	
+
+	
+	
 
 	<%
 	if (acb.getAdmin()==true){

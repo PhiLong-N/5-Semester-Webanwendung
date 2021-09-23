@@ -5,6 +5,7 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>Insert title here</title>
+
 </head>
 <body>
 
@@ -21,6 +22,7 @@ String btnLagerAndern = request.getParameter("btnLagerAndern");
 String btnArtikelHinzufugen = request.getParameter("btnArtikelHinzufugen");
 String btnAdminHinzufugen = request.getParameter("btnAdminHinzufugen");
 
+
 if(btnAdresse==null)btnAdresse="";
 if(btnLoschen==null)btnLoschen="";
 if(btnMeineBestellungen==null)btnMeineBestellungen="";
@@ -30,8 +32,14 @@ if(btnArtikelHinzufugen==null)btnArtikelHinzufugen="";
 if(btnAdminHinzufugen==null)btnAdminHinzufugen="";
 
 
-if (btnAdresse.equals("adresse")){
+//offen
+System.out.println(btnAdresse);
+
+if (btnAdresse.equals("true")){
 	response.sendRedirect("AdresseAndernView.jsp");
+}
+else if(btnAdresse.equals("false")){
+	response.sendRedirect("EinstellungView.jsp");
 }
 else if(btnLoschen.equals("loschen")){
 	acb.deletAcc();

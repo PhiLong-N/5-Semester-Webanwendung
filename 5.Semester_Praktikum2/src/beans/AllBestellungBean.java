@@ -143,7 +143,7 @@ public class AllBestellungBean {
 					+ "		<option value=3 >3 Stern</option>\r\n"
 					+ "		<option value=4 >4 Stern</option>\r\n"
 					+ "		<option value=5 >5 Stern</option> </select>";
-			html += "<button type='submit' name='btnBewerten' value="+artikelnr+" onclick='bewertungsBestatigung()' />Bewertung Abgeben </button> </form>  </td> </tr>";
+			html += "<button type='submit' name='btnBewerten' value="+artikelnr+" onclick='bewertungBestatigen()' />Bewertung Abgeben </button> </form>  </td> </tr>";
 		}
 		return html;
 	}
