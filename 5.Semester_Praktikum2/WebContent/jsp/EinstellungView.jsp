@@ -13,23 +13,14 @@
 
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a>
 <br><br>
-<form id="test" action="./EinstellungAppl.jsp" method="get">
+<form action="./EinstellungAppl.jsp" method="get">
 
 <table>
 	
 	<tr><td><button type="submit" name="btnMeineBestellungen" value="bestellung" >Meine Bestellungen</button></td></tr>
-	<tr><td><button type="submit" name="btnAdresse" value="adresse" onclick="geek()" >Adresse Ändern</button></td></tr>
+	<tr><td><button type="submit" name="btnAdresse" value="adresse">Adresse Ändern</button></td></tr>
 	<tr><td><button type="submit" name="btnLoschen" value="loschen">Account Löschen</button></td></tr>
-	
-	<tr><td>
-	 <button onclick="geek()">Click me!</button>
-	 <p id="g"></p>
-	</td>	
-	</tr>
-	
-
-	
-	
+		
 
 	<%
 	if (acb.getAdmin()==true){

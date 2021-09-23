@@ -20,15 +20,18 @@
 		<td>Email-Adresse: </td>
 		<td><input type="text" name="email" value="<%if (acb.getEmail()==null)out.print("");
 														else out.print(acb.getEmail()); %>" /></td>
+		<td><%out.print(acb.getEmailMsg()); %></td>
 	</tr>
 	<tr>
 		<td>Benutzername: </td>
 		<td><input type="text" name="username" value="<%if (acb.getUsername()==null)out.print("");
 														else out.print(acb.getUsername()); %>" /></td>
+		<td><%out.print(acb.getUsernameMsg()); %></td>
 	</tr>
 	<tr>
 		<td>Passwort: </td>
 		<td><input type="password" name="password" value="" /></td>
+		<td><%out.print(acb.getPasswortMsg()); %></td>
 	</tr>
 	<tr>
 		<td>Passwort Bestätigen: </td>

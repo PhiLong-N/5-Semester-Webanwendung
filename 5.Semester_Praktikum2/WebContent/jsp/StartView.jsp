@@ -8,13 +8,15 @@
 </head>
 <body>
 
-	<jsp:useBean id="acb" class="beans.AccountBean"
-		scope="session" />
-	<jsp:useBean id="gb" class="beans.GUIBean"
-		scope="session" />
-	<jsp:useBean id="ab" class="beans.ArtikelBean"
-		scope="session" />
-		
+<jsp:useBean id="acb" class="beans.AccountBean" scope="session" />
+<jsp:useBean id="gb" class="beans.GUIBean" scope="session" />
+<jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
+
+<%gb.setLoschenMsg("");
+acb.setEmailMsg("");
+acb.setUsernameMsg("");
+acb.setPasswortMsg("");
+%>	
 		
 		
 	
@@ -40,7 +42,7 @@
 					out.print(ab.searchBarKategorie());
 					%>
 				</td>
-				<td><input type="text" name="searchBar" value="" size="64" /></td>
+				<td><input type="text" name="searchBar" value="" size="70" /></td>
 				<td><button type="submit" name="btnSearch" value="search" />Suchen</button></td>
 			</tr>
 		</table>

@@ -29,7 +29,7 @@
 	</tr>
 </table>
 
-	<button type="submit" name="btnAdresseAndern" value="adresseAndern"> Lieferadresse ändern</button>
+	<button type="submit" name="btnAdresseAndern" value="adresseAndern"> Adresse ändern</button>
 		
 </form>
 

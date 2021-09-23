@@ -20,6 +20,11 @@ public class AccountBean {
 	int plz;
 
 	Boolean login=false;
+	String emailMsg="";
+	String usernameMsg="";
+	String passwortMsg="";
+
+	
 
 	Connection dbConn;
 
@@ -46,7 +51,7 @@ public class AccountBean {
 	public boolean insertKunde() throws SQLException {
 		boolean ergebnis=checkIfExist(); // true = existiert bereits
 		if (ergebnis)
-			System.out.println("nope");
+			System.out.println("Wurde nicht hinzugefügt");
 		else {
 			String sql = "INSERT INTO account (email,username,password,adresse,stadt,plz) VALUES(?,?,?,?,?,?)";
 			PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
@@ -71,27 +76,31 @@ public class AccountBean {
 		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
 		
-		logout();
+		sql = "delete from allbestellung where kundennr="+this.accNr;
+		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
+		prep.executeUpdate();
 		
+		logout();
 	}
 	
-	public void checkIfInsertDataOk() {
-		//!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-	}
-
 	public boolean checkIfExist() throws NoConnectionException, SQLException {
-		//wenn true existiert email oder password (falls kein fehler wenn dann beide gleichzeitig oder gar keins)
+		//wenn true existiert email oder username
 		boolean check = false;
 		
 		String sql = "select email from account where email = '" + this.email + "'";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
-		if (dbRes.next() == true)
+		if (dbRes.next() == true) {
 			check = true;
+			setEmailMsg("E-mail Adresse existiert bereits.");
+		}else setEmailMsg("");
 		sql = "select username from account where username = '" + this.username + "'";
 		dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
-		if (dbRes.next() == true)
+		if (dbRes.next() == true) {
 			check = true;
-
+			setUsernameMsg("Benutzername existiert bereits.");
+		}
+		else setUsernameMsg("");
+		
 		return check;
 	}
 	
@@ -101,9 +110,7 @@ public class AccountBean {
 		if (dbRes.next() == true) {
 			return this.password.equals(dbRes.getString("password").trim());
 		}
-		else { 
-			return false;
-			}
+		else return false;
 	}
 	
 	public void login() throws NoConnectionException, SQLException {
@@ -121,7 +128,7 @@ public class AccountBean {
 		setLogin(true);
 	}
 	
-	public void refreshData() throws NoConnectionException, SQLException {
+	public void refreshData() throws NoConnectionException, SQLException { //wird verwendet wenn Lieferadresse bei der Bestellung verändert wird
 		String sql = "select username,adresse,stadt,plz from account where accnr =" + this.accNr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
@@ -165,8 +172,6 @@ public class AccountBean {
 		setPlz(plz);
 		return check;
 	}
-	
-	
 	
 	
 	public String getAdresse() {
@@ -243,6 +248,30 @@ public class AccountBean {
 
 	public void setLogin(Boolean login) {
 		this.login = login;
+	}
+	
+	public String getEmailMsg() {
+		return emailMsg;
+	}
+
+	public void setEmailMsg(String emailMsg) {
+		this.emailMsg = emailMsg;
+	}
+
+	public String getUsernameMsg() {
+		return usernameMsg;
+	}
+
+	public void setUsernameMsg(String usernameMsg) {
+		this.usernameMsg = usernameMsg;
+	}
+
+	public String getPasswortMsg() {
+		return passwortMsg;
+	}
+
+	public void setPasswortMsg(String passwortMsg) {
+		this.passwortMsg = passwortMsg;
 	}
 
 }

@@ -48,7 +48,7 @@ String html="<select name='anzahlArtikel'>";
 	int start=1;
 	if (lager<1)start=0;
 	if (lager<30)max=lager;
-	for (int i=start;i<=lager;i++){
+	for (int i=start;i<=max;i++){
 		if (i==1) html += "<option value="+i+" selected>"+i+"</option>";
 		else html += "<option value="+i+">"+i+"</option>";	
 	}

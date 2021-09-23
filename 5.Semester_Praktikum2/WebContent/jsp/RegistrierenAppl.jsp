@@ -36,9 +36,11 @@ try {
 }
 
 if (!password.equals(passwordwdh) || check==false ||username.equals("") || email.equals("") ||stadt.equals("") || adresse.equals("")){
+	acb.setPasswortMsg("Passwort stimmt nicht überein");
 	response.sendRedirect("RegistrierenView.jsp");
 }
 else if(btnRegistrieren.equals("registrieren")){
+	acb.setPasswortMsg("");
 	acb.setPassword(password);
 	if (acb.getAdmin())
 		if (acb.insertAdmin()) response.sendRedirect("RegistrierenView.jsp");

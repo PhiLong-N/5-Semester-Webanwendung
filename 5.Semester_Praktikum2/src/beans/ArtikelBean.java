@@ -18,7 +18,6 @@ public class ArtikelBean {
 	double preis;
 	int clicks;
 	String beschreibung;
-	String herstellerlink;
 	double bewertungsum;
 	double bewertunganzahl;
 	int lager;
@@ -84,15 +83,14 @@ public class ArtikelBean {
 				search(sql);
 			}
 		}
-
 	}
 
 	public void search(String sql) throws NoConnectionException, SQLException {
 		String html = "<table>";
-		int a = 0;
+		int stelle = 0;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		while (dbRes.next()) {
-			if (a % 2 == 0)
+			if (stelle % 2 == 0) // 2 für 2 artikel pro reihe (stelle 0 und 1)
 				html += "<tr><td width='140px'></td>";
 			int artikelnr = dbRes.getInt("artikelnr");
 			String artikel = dbRes.getString("artikel").trim();
@@ -119,28 +117,14 @@ public class ArtikelBean {
 				html += "<font color='red'>Ausverkauft</font>";
 			html += "</td>";
 			html+= "</button>";
-			if (a % 2 == 1)
+			if (stelle % 2 == 1)
 				html += "</tr>";
-			a++;
+			stelle++;
 		}
 		html += "</table>";
 		setSearchResult(html);
 	}
-	
-	public String bewertung() {
-		if (this.bewertunganzahl==1)return "NEU!";
-		double bewertung = this.bewertungsum / (this.bewertunganzahl-1);
-		DecimalFormat f = new DecimalFormat("#0.0"); 
-		return "Bewertung: "+ f.format(bewertung);
-	}
 
-	public void setSearchResult(String html) {
-		searchResult = html;
-	}
-
-	public String getSearchResult() {
-		return searchResult;
-	}
 
 	public void getAllInfo(int artikelNr) throws NoConnectionException, SQLException {
 		String sql = "select artikelnr,artikel,kategorie, preis,beschreibung,clicks,lager,bewertungsum,bewertunganzahl from artikel where artikelnr ="
@@ -156,7 +140,6 @@ public class ArtikelBean {
 		this.lager = dbRes.getInt("lager");
 		this.bewertungsum= dbRes.getDouble("bewertungsum");
 		this.bewertunganzahl= dbRes.getDouble("bewertunganzahl");
-		
 	}
 
 	public int maxClicksArtikel() throws NoConnectionException, SQLException {
@@ -202,13 +185,7 @@ public class ArtikelBean {
 		prep.executeUpdate();
 	}
 	
-	public String setAllArtikel(String eingabe) {
-		String sql = "select artikelnr, artikel,lager from artikel  where artikelLower like '%"
-				+ eingabe.toLowerCase() + "%'  order by artikel asc";
-		return sql;
-	}
-	
-	public void setLagerArtikel(String eingabe) throws NoConnectionException, SQLException {
+	public void setLagerArtikel(String eingabe) throws NoConnectionException, SQLException { //Admin: Lageranzahl ändern: alle Artikel %eingabe% werden aufgelistet
 		String sql = setAllArtikel(eingabe);
 		String html="";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
@@ -221,7 +198,6 @@ public class ArtikelBean {
 		}
 		setSearchResult(html);
 	}
-	
 	public void updateLager(int artikelNr, int eingabe) throws NoConnectionException, SQLException {
 		String sql = "update artikel set lager="+eingabe+"where artikelnr="+artikelNr;		
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
@@ -240,7 +216,6 @@ public class ArtikelBean {
 		}
 		setSearchResult(html);
 	}
-	
 	public void deleteArtikel(int artikelNr) throws NoConnectionException, SQLException {
 		String sql = "delete from artikel where artikelnr="+artikelNr;
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
@@ -259,6 +234,12 @@ public class ArtikelBean {
 		prep.executeUpdate();
 	}
 	
+	public String setAllArtikel(String eingabe) {
+		String sql = "select artikelnr, artikel,lager from artikel  where artikelLower like '%"
+				+ eingabe.toLowerCase() + "%'  order by artikel asc";
+		return sql;
+	}
+	
 	
 	public void insertNewArtikel(String artikel, String kategorie, double preis, String beschreibung, int lager) throws SQLException {
 		String sql = "insert into artikel (artikel, artikellower, kategorie, kategorielower, preis , beschreibung, lager) "
@@ -275,9 +256,6 @@ public class ArtikelBean {
 		prep.executeUpdate();
 	}
 
-	
-	
-	
 	
 	public int getArtikelnr() {
 		return artikelnr;
@@ -333,6 +311,14 @@ public class ArtikelBean {
 
 	public void setBeschreibung(String beschreibung) {
 		this.beschreibung = beschreibung;
+	}
+	
+	public void setSearchResult(String html) {
+		searchResult = html;
+	}
+
+	public String getSearchResult() {
+		return searchResult;
 	}
 
 }

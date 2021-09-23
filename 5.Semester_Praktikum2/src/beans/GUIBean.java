@@ -9,10 +9,12 @@ import app.install.PostgreSQLAccess;
 
 public class GUIBean {
 	
+	String loschenMsg="";
+	
 	Connection dbConn;
 	
 	
-	public String falseLogin() {
+	public String falseLogin() {		//StartView falls nicht eingeloggt
 		String html="";
 		html +="<form action='./StartAccountAppl.jsp' method='get'>\n";
 		html +="<table><tr>";
@@ -25,7 +27,7 @@ public class GUIBean {
 		return html;
 	}
 	
-	public String trueLogin(String username) {
+	public String trueLogin(String username) { //falls eingeloggt
 		String html="";
 		html+="<form action='./StartAccountAppl.jsp' method='get'>";
 		html+="<table>";
@@ -42,7 +44,7 @@ public class GUIBean {
 	}
 	
 
-	public String lastArtikel(int artikelnr) throws NoConnectionException, SQLException {
+	public String lastArtikel(int artikelnr) throws NoConnectionException, SQLException { //zuletzt angeschauter Artikel
 		String sql = "select artikel from artikel where artikelnr="+artikelnr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
@@ -72,6 +74,14 @@ public class GUIBean {
 		
 		html+="</tr></table>";
 		return html;
+	}
+	
+	public void setLoschenMsg(String msg) {	//GUI-teil für LöschenView
+		this.loschenMsg= msg;
+	}
+	
+	public String getLoschenMsg() {
+		return loschenMsg;
 	}
 
 }

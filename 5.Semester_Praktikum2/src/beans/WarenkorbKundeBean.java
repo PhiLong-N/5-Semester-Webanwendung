@@ -24,7 +24,7 @@ public class WarenkorbKundeBean {
 		
 		String sql="Select menge from warenkorbkunde where kundennr="+kundenNr+"and artikelnr="+artikelNr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
-		if(dbRes.next()) {
+		if(dbRes.next()) {	//falls artikel bereits im Warenkorb wird dann dazu addiert (somit ist es möglich mehr als 30 Stück eines Artikels zu bestellen)
 			int neueMenge= menge+dbRes.getInt("menge");
 			sql = "update warenkorbkunde set menge="+neueMenge+"where kundennr="+kundenNr+"and artikelnr="+artikelNr;
 			PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
@@ -69,6 +69,9 @@ public class WarenkorbKundeBean {
 			html+="<tr><td>"+artikel+"</td>";
 			html+="<td>Menge: ";
 			html+="<select name='anzahlArtikelAndern'>";
+			
+			//Im Warenkorb kann die Menge auf max=30 erhöht werden. Falls bereits mehr im Warenkorb ist werden so viele <option> erstellt wie nötig aber nicht mehr
+			//falls weniger als 30 bestellt werden gibt es nur so viele <option>'s erstellt wie es die im Lager gibt(max 30) oder die bestellte menge auch wenn diese die Lageranzahl übersteigt
 			if (menge>30){
 				for (int i=1;i<=menge+1;i++){
 					if (i==menge) html += "<option value="+i+" selected>"+i+"</option>";
@@ -96,7 +99,7 @@ public class WarenkorbKundeBean {
 		}
 		html+="</table>";
 		
-		String komma="update komma set decimal ="+gesamtbetrag+" where position =1";
+		String komma="update komma set decimal ="+gesamtbetrag+" where position =1"; //systembedingter umweg da bei manchen summen sehr viele kommastellen entstehen
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(komma);
 		prep.executeUpdate();
 		komma="select decimal from komma where position=1";
@@ -110,7 +113,7 @@ public class WarenkorbKundeBean {
 	
 	
 	
-	public void changeMenge(int menge, int artikelNr) throws NoConnectionException, SQLException {
+	public void changeMenge(int menge, int artikelNr) throws NoConnectionException, SQLException {	//im Warenkorb
 		String sql = "update warenkorbkunde set menge="+menge+"where kundennr="+this.kundenNr+"and artikelnr="+artikelNr;
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
@@ -127,7 +130,7 @@ public class WarenkorbKundeBean {
 		
 	}
 	
-	public void deletArtikel(int artikelNr) throws NoConnectionException, SQLException {
+	public void deletArtikel(int artikelNr) throws NoConnectionException, SQLException {		//aus Warenkorb entfernen
 		String sql = "DELETE FROM warenkorbkunde WHERE artikelnr="+artikelNr+"and kundennr="+kundenNr;
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
@@ -165,7 +168,6 @@ public class WarenkorbKundeBean {
 			 int lager = dbResLager.getInt("lager");
 			 if (menge >lager)return false;
 		}
-		
 		return true;
 	}
 	

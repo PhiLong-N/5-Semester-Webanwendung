@@ -13,16 +13,13 @@ import app.install.PostgreSQLAccess;
 
 public class AllBestellungBean {
 	
-	
 	Connection dbConn;
 	
-	
-	
 	public void bestellung(int kundenNr, String name, String adresse, String stadt, int plz) throws SQLException {
-		int bestellnr=1;
+		int bestellnr=1; //falls noch keine Bestellung im System getätigt worden ist
 		String sql="select bestellnr from allbestellung order by bestellnr desc";
 		ResultSet dbRes3 = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
-		try {
+		try { //falls noch keine Bestellung im System getätigt worden ist bricht try ab
 			dbRes3.next();
 			int letzteBestellnr = dbRes3.getInt("bestellnr");
 			bestellnr= letzteBestellnr+1;
@@ -38,8 +35,6 @@ public class AllBestellungBean {
 			int menge = dbRes.getInt("menge");
 			
 			sql="Insert into allbestellung(bestellnr,kundennr,artikelnr,menge,datum,name,adresse,stadt,plz) values(?,?,?,?,?,?,?,?,?)";
-
-//			sql="Insert into allbestellung(bestellnr,kundennr,artikelnr,menge,datum) values(?,?,?,?,?)";
 			this.dbConn = new PostgreSQLAccess().getConnection();
 			PreparedStatement prep = this.dbConn.prepareStatement(sql);
 			prep.setInt(1, bestellnr);
@@ -61,10 +56,8 @@ public class AllBestellungBean {
 			
 			sql = "select lager from artikel where artikelnr="+artikelNr;
 			ResultSet dbRes2 = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
-			int lagervorrat=0;
-			while(dbRes2.next()) {
-				lagervorrat= dbRes2.getInt("lager");
-			}
+			dbRes2.next();
+			int lagervorrat= dbRes2.getInt("lager");
 			int lagerneu = lagervorrat - menge;
 			sql = "update artikel set lager="+lagerneu+" where artikelnr="+artikelNr;
 			prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
@@ -72,6 +65,11 @@ public class AllBestellungBean {
 			System.out.println("Lagerbestand wurde reduziert.");
 		}
 	}
+	
+	
+	//Alle Nachfolgenden Methoden sind teil von getAllBestellung() welche ganz unten ist. / Bestellhistorie
+	
+	//getTime, getSumme und getVersandadresse: Header pro Bestellung
 	
 	public Timestamp getTime(int bestellnr) throws NoConnectionException, SQLException {
 		String sql="select datum from allbestellung where bestellnr="+bestellnr;
@@ -94,7 +92,7 @@ public class AllBestellungBean {
 			double preis = dbRes2.getDouble("preis");
 			summe += menge*preis;
 		}
-		
+		// In manchen fällen kann "summe" zu sehr vielen Nachkommastellen kommen aufgrund der Rechenweise vom System
 		String komma="update komma set decimal ="+summe+" where position =1";
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(komma);
 		prep.executeUpdate();
@@ -119,7 +117,9 @@ public class AllBestellungBean {
 		return html;
 	}
 	
-	public String getBestellung(int bestellnummer) throws NoConnectionException, SQLException {
+	// getBestellung: html-erzeugung von allen Artikeln einer Bestellung
+	
+	public String getBestellung(int bestellnummer) throws NoConnectionException, SQLException { //
 		String html="";
 		String sql ="select artikelnr, menge from allbestellung where bestellnr="+bestellnummer;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
@@ -148,6 +148,7 @@ public class AllBestellungBean {
 		return html;
 	}
 	
+	//Zusammenstellung aller Bausteine für die Bestellhistorie
 	
 	public String getAllBestellung(int kundennr) throws NoConnectionException, SQLException {
 		String html="";
@@ -155,26 +156,15 @@ public class AllBestellungBean {
 		String sqlKundennr="select bestellnr from allbestellung where kundennr="+kundennr+" group by bestellnr ORDER by bestellnr DESC";
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sqlKundennr).executeQuery();
 		while (dbRes.next()) {
-			int bestellnr = dbRes.getInt("bestellnr");
-			String sqlBestellnr = "select * from allbestellung where bestellnr="+bestellnr;
-			ResultSet dbRes2 = new PostgreSQLAccess().getConnection().prepareStatement(sqlBestellnr).executeQuery();
-			while (dbRes2.next()) {
-				if(bestellnrAlt!=bestellnr) {
-					html+="<table class='outerborder'><tr><td width='200px'><b>"+getTime(bestellnr)+"</b></td>";
-					html+="<td colspan='2'><b>	Gesamtbetrag: "+getSumme(kundennr, bestellnr)+" Euro </b></td>";
-					html+=" <td><b>Bestellnummer: "+bestellnr+" </td></b></tr>";
-					html+="<tr><td><b>"+getVersandadresse(bestellnr)+"</b><br></td></tr>";
-					html+= getBestellung(bestellnr);
-					html+="</table><br><br>";
-				}
-				bestellnrAlt=bestellnr;
-			}	
+			int bestellnr = dbRes.getInt("bestellnr");		
+			html+="<table class='outerborder'><tr><td width='200px'><b>"+getTime(bestellnr)+"</b></td>";
+			html+="<td colspan='2'><b>	Gesamtbetrag: "+getSumme(kundennr, bestellnr)+" Euro </b></td>";
+			html+=" <td><b>Bestellnummer: "+bestellnr+" </td></b></tr>";
+			html+="<tr><td><b>"+getVersandadresse(bestellnr)+"</b><br></td></tr>";
+			html+= getBestellung(bestellnr);
+			html+="</table><br><br>";
 		}
-		
-		
 		return html;
 	}
-	
-	
 
 }

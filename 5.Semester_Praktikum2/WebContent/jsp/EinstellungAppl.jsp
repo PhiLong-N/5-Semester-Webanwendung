@@ -10,7 +10,7 @@
 <body>
 
 <jsp:useBean id="acb" class="beans.AccountBean" scope="session" />
-	<jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
+<jsp:useBean id="ab" class="beans.ArtikelBean" scope="session" />
 
 
 <%
@@ -32,18 +32,11 @@ if(btnArtikelHinzufugen==null)btnArtikelHinzufugen="";
 if(btnAdminHinzufugen==null)btnAdminHinzufugen="";
 
 
-//offen
-System.out.println(btnAdresse);
-
-if (btnAdresse.equals("true")){
+if (btnAdresse.equals("adresse")){
 	response.sendRedirect("AdresseAndernView.jsp");
 }
-else if(btnAdresse.equals("false")){
-	response.sendRedirect("EinstellungView.jsp");
-}
 else if(btnLoschen.equals("loschen")){
-	acb.deletAcc();
-	response.sendRedirect("StartView.jsp");
+	response.sendRedirect("LoschenView.jsp");
 }
 else if(btnMeineBestellungen.equals("bestellung")){
 	response.sendRedirect("MeineBestellungenView.jsp");
