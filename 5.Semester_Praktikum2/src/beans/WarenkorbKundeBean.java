@@ -19,6 +19,7 @@ public class WarenkorbKundeBean {
 	double einzelpreis;
 	
 	Connection dbConn;
+	DecimalFormat z = new DecimalFormat("#0.00");		//zwei nachkommastellen
 	
 	public void insertWarenkorb(int kundenNr,int artikelNr,int menge,double preis) throws SQLException {
 		this.kundenNr=kundenNr;
@@ -93,17 +94,13 @@ public class WarenkorbKundeBean {
 			if(menge>lager)html+="<td>Reduzieren Sie bitte ihre ausgewählte Menge.</td>";
 			else html+="<td></td>";
 			html+="</tr>";
-			html+="<tr> <td></td> <td>Einzelpreis: "+einzelpreis+" Euro</td></tr>";
-			html+="<tr> <td></td> <td>Gesamtpreis: "+gesamtpreis+" Euro </td></tr>";
+			html+="<tr> <td></td> <td>Einzelpreis: "+z.format(einzelpreis)+" Euro</td></tr>";
+			html+="<tr> <td></td> <td>Gesamtpreis: "+z.format(gesamtpreis)+" Euro </td></tr>";
 			html+="</form>";
 			gesamtbetrag+=gesamtpreis;
 		}
 		html+="</table>";
-		
-		DecimalFormat f = new DecimalFormat("#0.00");
-		String gesamtbetragString = f.format(gesamtbetrag); 
-			
-		html+="<br><br><br><h4>Gesamtbetrag: "+gesamtbetragString+" Euro</h4>";
+		html+="<br><br><br><h4>Gesamtbetrag: "+z.format(gesamtbetrag)+" Euro</h4>";
 		return html;
 	}
 	
@@ -113,7 +110,6 @@ public class WarenkorbKundeBean {
 		String sql = "update warenkorbkunde set menge="+menge+"where kundennr="+this.kundenNr+"and artikelnr="+artikelNr;
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
-		
 		sql = "select einzelpreis from warenkorbkunde where kundennr="+this.kundenNr+" and artikelnr= "+artikelNr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
@@ -140,9 +136,7 @@ public class WarenkorbKundeBean {
 		while(dbRes.next()) {
 			endpreis += dbRes.getDouble("gesamtpreis");
 		}
-		DecimalFormat f = new DecimalFormat("#0.00");
-		String endpreisString = f.format(endpreis); 
-		return endpreisString;
+		return z.format(endpreis);
 	}
 	
 	public boolean checkMenge() throws NoConnectionException, SQLException {

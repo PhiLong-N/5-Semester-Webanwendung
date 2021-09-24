@@ -129,13 +129,14 @@ public class AccountBean {
 	}
 	
 	public void refreshData() throws NoConnectionException, SQLException { //wird verwendet wenn Lieferadresse bei der Bestellung verändert wird
-		String sql = "select username,adresse,stadt,plz from account where accnr =" + this.accNr;
+		String sql = "select username,adresse,stadt,plz,admin from account where accnr =" + this.accNr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		dbRes.next();
 		setUsername(dbRes.getString("username"));
 		setAdresse(dbRes.getString("adresse"));
 		setStadt(dbRes.getString("stadt"));
 		setPlz(dbRes.getInt("plz"));
+		setAdmin(dbRes.getBoolean("admin"));
 	}
 	
 	public void logout() throws NoConnectionException, SQLException {

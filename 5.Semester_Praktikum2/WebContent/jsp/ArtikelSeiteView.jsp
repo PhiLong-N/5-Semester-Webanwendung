@@ -26,11 +26,11 @@ ab.increaseClick(artikelNr);
 ab.getAllInfo(artikelNr);
 out.print("<h1>"+ ab.getArtikel()+"</h1>");
 %>
-
 <table>
 	<tr>
 		<td><% out.print("<img src='../img/"+ab.getArtikel().toLowerCase().trim()+".jpg' height='300px' width='300px' />"); %> </td>
-		<td valign="bottom"><h2><%out.print(ab.getPreis());%>Euro</h2></td>
+		<td valign="bottom"><h2><%
+		out.print(ab.getPrei());%>Euro</h2></td>
 	</tr>
 </table>
 <table>

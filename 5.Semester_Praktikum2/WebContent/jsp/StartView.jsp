@@ -17,6 +17,8 @@ gb.setLoschenMsg("");
 acb.setEmailMsg("");
 acb.setUsernameMsg("");
 acb.setPasswortMsg("");
+
+if(acb.getLogin()==true)acb.refreshData();
 %>			
 	
 <a href="StartView.jsp"><img src="../img/LogoCut.png" width="800"/></a><br><br>

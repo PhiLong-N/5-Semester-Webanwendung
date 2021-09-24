@@ -28,6 +28,10 @@ public class ArtikelBean {
 	String katLowerMerker;
 
 	Connection dbConn;
+	DecimalFormat e = new DecimalFormat("#0.0");		//ein nachkommastelle
+	DecimalFormat z = new DecimalFormat("#0.00");		//zwei nachkommastellen
+
+
 
 	public String searchBarKategorie() throws NoConnectionException, SQLException {
 		String sql = "select kategorie from artikel group by kategorie order by kategorie asc";
@@ -98,13 +102,12 @@ public class ArtikelBean {
 			double bewertunganzahl = dbRes.getInt("bewertunganzahl");
 			html += "<td><button type='submit' name='btnArtikel' value='" + artikelnr + "'>"
 					+ "<img src='../img/"+artikel.toLowerCase()+".jpg' height='250px' width='250' /><br>" + artikel;
-			html +="<br>Preis: "+preis;
+			html +="<br>Preis: "+z.format(preis);
 			if (bewertunganzahl==1) {
 				html+="<br> NEU!";
 			}else { 
 				double bewertung = bewertungsum/(bewertunganzahl-1);
-				DecimalFormat f = new DecimalFormat("#0.0");
-				html+= "<br>Bewertung:"+f.format(bewertung); 
+				html+= "<br>Bewertung:"+e.format(bewertung); 
 				}
 			html+= "<br>";
 			int lager = dbRes.getInt("lager");
@@ -195,8 +198,7 @@ public class ArtikelBean {
 		if (bewertunganzahl==1)return "NEU!";
 		
 		double bewertung = bewertungsum/(bewertunganzahl-1);
-		DecimalFormat f = new DecimalFormat("#0.0");
-		html= "<br>Bewertung:"+f.format(bewertung); 
+		html= "<br>Bewertung:"+e.format(bewertung); 
 		return html;
 	}
 	
@@ -272,7 +274,7 @@ public class ArtikelBean {
 		prep.setInt(7, lager);
 		prep.executeUpdate();
 	}
-
+	
 	
 	public int getArtikelnr() {
 		return artikelnr;
@@ -308,6 +310,10 @@ public class ArtikelBean {
 
 	public double getPreis() {
 		return preis;
+	}
+	
+	public String getPrei() {
+		return z.format(preis);
 	}
 
 	public void setPreis(double preis) {

@@ -30,6 +30,7 @@ String btnKasse = request.getParameter("btnKasse");
 if (btnKasse==null)btnKasse="";
 
 if(!btnArtikelAndernString.equals("")){
+	System.out.println("anzahlArtikelan:"+anzahlArtikelAndern+" btn: "+btnArtikelAndern);
 	wkb.changeMenge(anzahlArtikelAndern, btnArtikelAndern);
 	response.sendRedirect("WarenkorbView.jsp");
 }else if(!btnArtikelLoschenString.equals("")){

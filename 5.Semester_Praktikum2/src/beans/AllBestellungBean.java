@@ -15,6 +15,7 @@ import app.install.PostgreSQLAccess;
 public class AllBestellungBean {
 	
 	Connection dbConn;
+	DecimalFormat z = new DecimalFormat("#0.00");		//zwei nachkommastellen
 	
 	public void bestellung(int kundenNr, String name, String adresse, String stadt, int plz) throws SQLException {
 		int bestellnr=1; //falls noch keine Bestellung im System getätigt worden ist
@@ -93,8 +94,7 @@ public class AllBestellungBean {
 			summe += menge*preis;
 		}
 		
-		DecimalFormat f = new DecimalFormat("#0.00");
-		String summeString = f.format(summe); 
+		String summeString = z.format(summe); 
 		
 		return summeString;
 	}
@@ -129,7 +129,7 @@ public class AllBestellungBean {
 			html +="<tr> <td rowspan='2'> <a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'> <img src='../img/"+artikel.toLowerCase().trim()+".jpg' height='150px' width='150px' /></a></td>"
 					+ "<td width='200px'><a href='http://localhost:8080/5.Semester_Praktikum/jsp/ArtikelSeiteView.jsp?btnArtikel="+artikelnr+"'>"+artikel +"</a> "
 					+ "</td> <td width='100px'>Menge: "+menge +"</td> "
-					+ "<td>Einzelpreis: "+preis+"</td> </tr>" ;
+					+ "<td>Einzelpreis: "+z.format(preis)+"</td> </tr>" ;
 			html += "<tr> <td  colspan='3'>";
 			html += "<form action=\"./MeineBestellungAppl.jsp\" method=\"get\">\r\n"
 					+ "	<select name='bewertung'>\r\n"
