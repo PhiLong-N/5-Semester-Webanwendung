@@ -50,7 +50,7 @@ public class GUIBean {
 		dbRes.next();
 		String artikel = dbRes.getString("artikel");
 		
-		String html="Zuletzt Angesehen: ";
+		String html="<h2>Zuletzt Angesehen: </h2>";
 		html += "<button type='sub"
 				+ "mit' name='btnArtikel' value=<''/>";
 		html += "<img src='../img/"+artikel.toLowerCase().trim()+".jpg' height='200px' width='200px' /><br>"+artikel;
@@ -75,6 +75,8 @@ public class GUIBean {
 		html+="</tr></table>";
 		return html;
 	}
+	
+	
 	
 	public void setLoschenMsg(String msg) {	//GUI-teil für LöschenView
 		this.loschenMsg= msg;

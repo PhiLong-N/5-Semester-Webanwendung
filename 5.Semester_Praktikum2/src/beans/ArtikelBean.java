@@ -43,6 +43,7 @@ public class ArtikelBean {
 		return html;
 	}
 
+	//searchAll, searchKategorie und searchPreisklasse gehören alle zu search(sql){}
 	public void searchAll(String eingabe) throws NoConnectionException, SQLException {
 		eingabeMerker = eingabe;
 		katLowerMerker = "alle";
@@ -50,7 +51,6 @@ public class ArtikelBean {
 				+ eingabe.toLowerCase() + "%' order by (bewertungsum/bewertunganzahl)desc";
 		search(sql);
 	}
-
 	public void searchKategorie(String eingabe, String katLower) throws NoConnectionException, SQLException {
 		eingabeMerker = eingabe;
 		katLowerMerker = katLower;
@@ -58,7 +58,6 @@ public class ArtikelBean {
 				+ eingabe.toLowerCase() + "%' and kategorieLower like '%" + katLower + "%' order by (bewertungsum/bewertunganzahl)desc";
 		search(sql);
 	}
-
 	public void searchPreisklasse(String preisklasse) throws NoConnectionException, SQLException {
 		String sql = "";
 		if (preisklasse.equals("alle")) {
@@ -126,6 +125,7 @@ public class ArtikelBean {
 	}
 
 
+	
 	public void getAllInfo(int artikelNr) throws NoConnectionException, SQLException {
 		String sql = "select artikelnr,artikel,kategorie, preis,beschreibung,clicks,lager,bewertungsum,bewertunganzahl from artikel where artikelnr ="
 				+ artikelNr;
@@ -200,6 +200,8 @@ public class ArtikelBean {
 		return html;
 	}
 	
+	
+	//setLagerArtikel, updateLger, setDeleteArtikel und deleteArtikel gehören alle zu setLAllArtikel()
 	public void setLagerArtikel(String eingabe) throws NoConnectionException, SQLException { //Admin: Lageranzahl ändern: alle Artikel %eingabe% werden aufgelistet
 		String sql = setAllArtikel(eingabe);
 		String html="";
@@ -218,7 +220,6 @@ public class ArtikelBean {
 		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
 	}
-	
 	public void setDeleteArtikel(String eingabe) throws NoConnectionException, SQLException {
 		String sql = setAllArtikel(eingabe);
 		String html="";
@@ -248,12 +249,13 @@ public class ArtikelBean {
 		prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
 		prep.executeUpdate();
 	}
-	
 	public String setAllArtikel(String eingabe) {
 		String sql = "select artikelnr, artikel,lager from artikel  where artikelLower like '%"
 				+ eingabe.toLowerCase() + "%'  order by artikel asc";
 		return sql;
 	}
+	
+	
 	
 	
 	public void insertNewArtikel(String artikel, String kategorie, double preis, String beschreibung, int lager) throws SQLException {

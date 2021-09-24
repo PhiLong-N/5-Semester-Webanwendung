@@ -16,8 +16,8 @@ Connection dbConn;
 	
 	public void doSomething() throws SQLException, ClassNotFoundException{
 		drop2KommaTable();
-		create2KommaTable();
-		insert2Komma();
+		//create2KommaTable();
+		//insert2Komma();
 	}
 	
 	public void create2KommaTable() throws SQLException {

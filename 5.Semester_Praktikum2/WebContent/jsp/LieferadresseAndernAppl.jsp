@@ -17,7 +17,12 @@ String adresse = request.getParameter("adresse");
 String stadt = request.getParameter("stadt");
 String plzString = request.getParameter("plz");
 if (plzString=="")plzString="0";
-int plz = Integer.parseInt(plzString);
+int plz=0;
+
+try{
+	plz = Integer.parseInt(plzString);
+}catch(Exception e){
+}
 
 if (btnAdresseAndern == null)btnAdresseAndern="";
 

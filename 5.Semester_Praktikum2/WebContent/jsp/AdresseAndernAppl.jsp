@@ -29,6 +29,7 @@ if(btnAdresseAndern.equals("adresseAndern")){
 		response.sendRedirect("StartView.jsp");
 	}
 }
+else response.sendRedirect("StartView.jsp");
 %>
 
 </body>

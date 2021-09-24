@@ -5,6 +5,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.DecimalFormat;
 
 import org.apache.tomcat.jni.Global;
 
@@ -68,7 +69,6 @@ public class AllBestellungBean {
 	
 	
 	//Alle Nachfolgenden Methoden sind teil von getAllBestellung() welche ganz unten ist. / Bestellhistorie
-	
 	//getTime, getSumme und getVersandadresse: Header pro Bestellung
 	
 	public Timestamp getTime(int bestellnr) throws NoConnectionException, SQLException {
@@ -79,7 +79,7 @@ public class AllBestellungBean {
 		return time;
 	}
 	
-	public double getSumme(int kundennr, int bestellnr ) throws NoConnectionException, SQLException {
+	public String getSumme(int kundennr, int bestellnr ) throws NoConnectionException, SQLException {
 		double summe=0;
 		String sql ="select artikelnr,menge from allbestellung where kundennr="+kundennr+" and bestellnr="+bestellnr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
@@ -92,16 +92,11 @@ public class AllBestellungBean {
 			double preis = dbRes2.getDouble("preis");
 			summe += menge*preis;
 		}
-		// In manchen fällen kann "summe" zu sehr vielen Nachkommastellen kommen aufgrund der Rechenweise vom System
-		String komma="update komma set decimal ="+summe+" where position =1";
-		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(komma);
-		prep.executeUpdate();
-		komma="select decimal from komma where position=1";
-		dbRes = new PostgreSQLAccess().getConnection().prepareStatement(komma).executeQuery();
-		dbRes.next();
-		summe = dbRes.getDouble("decimal");
 		
-		return summe;
+		DecimalFormat f = new DecimalFormat("#0.00");
+		String summeString = f.format(summe); 
+		
+		return summeString;
 	}
 	
 	public String getVersandadresse(int bestellnummer) throws NoConnectionException, SQLException {

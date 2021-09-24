@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 
@@ -99,15 +100,10 @@ public class WarenkorbKundeBean {
 		}
 		html+="</table>";
 		
-		String komma="update komma set decimal ="+gesamtbetrag+" where position =1"; //systembedingter umweg da bei manchen summen sehr viele kommastellen entstehen
-		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(komma);
-		prep.executeUpdate();
-		komma="select decimal from komma where position=1";
-		dbRes = new PostgreSQLAccess().getConnection().prepareStatement(komma).executeQuery();
-		dbRes.next();
-		gesamtbetrag = dbRes.getDouble("decimal");
-		
-		html+="<br><br><br><h4>Gesamtbetrag: "+gesamtbetrag+" Euro</h4>";
+		DecimalFormat f = new DecimalFormat("#0.00");
+		String gesamtbetragString = f.format(gesamtbetrag); 
+			
+		html+="<br><br><br><h4>Gesamtbetrag: "+gesamtbetragString+" Euro</h4>";
 		return html;
 	}
 	
@@ -137,22 +133,16 @@ public class WarenkorbKundeBean {
 		System.out.println("Artikel wurde gelöscht. /wkkBean"+artikelNr+" kundennr: "+kundenNr);
 	}
 	
-	public double endpreis() throws NoConnectionException, SQLException {
+	public String endpreis() throws NoConnectionException, SQLException {
 		double endpreis=0;
 		String sql="select gesamtpreis from warenkorbkunde where kundennr= "+kundenNr;
 		ResultSet dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
 		while(dbRes.next()) {
 			endpreis += dbRes.getDouble("gesamtpreis");
 		}
-		sql = "update komma set decimal="+endpreis+"where position=1";
-		PreparedStatement prep = new PostgreSQLAccess().getConnection().prepareStatement(sql);
-		prep.executeUpdate();
-		
-		sql = "select decimal from komma where position=1";
-		dbRes = new PostgreSQLAccess().getConnection().prepareStatement(sql).executeQuery();
-		dbRes.next();
-		endpreis=dbRes.getDouble("decimal");
-		return endpreis;
+		DecimalFormat f = new DecimalFormat("#0.00");
+		String endpreisString = f.format(endpreis); 
+		return endpreisString;
 	}
 	
 	public boolean checkMenge() throws NoConnectionException, SQLException {
@@ -170,7 +160,5 @@ public class WarenkorbKundeBean {
 		}
 		return true;
 	}
-	
-	
-	
+		
 }
